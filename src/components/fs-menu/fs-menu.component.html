@@ -1,0 +1,18 @@
+<ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
+  <button mat-button
+          [matMenuTriggerFor]="fsMenu"
+          #menuTrigger="matMenuTrigger"
+          (click)="openMenu(menuTrigger)"
+  ><mat-icon>more_vert</mat-icon></button>
+  <mat-menu #fsMenu="matMenu" (closed)="closeMenu()">
+    <ng-template ngFor [ngForOf]="items" let-item>
+      <button mat-menu-item (click)="item.elementRef.click($event)">
+        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+      </button>
+    </ng-template>
+  </mat-menu>
+</ng-template>
+
+<ng-template #sheetMenu>
+  <button mat-button (click)="openSheet()"><mat-icon>more_vert</mat-icon></button>
+</ng-template>
