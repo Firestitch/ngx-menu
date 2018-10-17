@@ -5,16 +5,18 @@ import {
   MatMenuModule,
   MatBottomSheetModule,
   MatListModule,
+  MatButtonModule,
 } from '@angular/material';
 
 import { FsMenuComponent, FsBottomSheetComponent } from './components';
-import { MenuItemDirective } from './directives/menu-item/menu-item.directive';
+import { MenuItemDirective, MenuTriggerDirective } from './directives';
 // import { FsComponentService } from './services';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatBottomSheetModule,
@@ -23,6 +25,7 @@ import { MenuItemDirective } from './directives/menu-item/menu-item.directive';
   exports: [
     FsMenuComponent,
     MenuItemDirective,
+    MenuTriggerDirective,
   ],
   entryComponents: [
     FsBottomSheetComponent,
@@ -32,6 +35,7 @@ import { MenuItemDirective } from './directives/menu-item/menu-item.directive';
     FsBottomSheetComponent,
 
     MenuItemDirective,
+    MenuTriggerDirective,
   ],
   providers: [
     // FsComponentService,

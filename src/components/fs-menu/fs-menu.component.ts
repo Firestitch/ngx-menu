@@ -1,15 +1,19 @@
 import {
   TemplateRef,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
-  ViewChild, OnInit,
+  ViewChild,
+  OnInit,
 } from '@angular/core';
-import { MatBottomSheet, MatMenuTrigger } from '@angular/material';
+
+import { MatBottomSheet, MatMenu, MatMenuTrigger } from '@angular/material';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet/typings/bottom-sheet-ref';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { FsBottomSheetComponent } from './bottom-sheet';
-import { MenuItemDirective } from '../../directives/menu-item/menu-item.directive';
+import { MenuItemDirective } from '../../directives';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -24,9 +28,16 @@ export class FsMenuComponent implements OnInit {
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
   public items = [];
 
+  public useInternalTrigger = true;
   public mobile = false;
   public opened = false;
-  public resolutionChanged = false;
+  set resolutionChanged(val) {
+    this._resolutionChanged = val;
+  }
+  get resolutionChanged() {
+    return this._resolutionChanged;
+  }
+  public _resolutionChanged = false;
   public initialized = false;
 
   @ContentChildren(MenuItemDirective, { read: TemplateRef })
@@ -43,8 +54,26 @@ export class FsMenuComponent implements OnInit {
 
   // Catch trigger for matMenu
   @ViewChild(MatMenuTrigger)
-  public menuTrigger;
+  set internalMatMenuTrigger(val) {
+    if (val) {
+      this.useInternalTrigger = true;
+    } else {
+      debugger;
+    }
 
+    this._internalMatMenuTrigger = val;
+  };
+
+  set externalMatMenuTrigger(val) {
+    this.useInternalTrigger = false;
+    this._externalMatMenuTrigger = val;
+  }
+
+  @ViewChild('fsMenu')
+  public fsMenuRef: MatMenu;
+
+  private _internalMatMenuTrigger;
+  private _externalMatMenuTrigger;
   private _itemsTemplates;
   private _itemsElements;
 
@@ -53,8 +82,17 @@ export class FsMenuComponent implements OnInit {
 
   constructor(
     private _bottomSheet: MatBottomSheet,
-    private _breakpointObserver: BreakpointObserver
+    private _breakpointObserver: BreakpointObserver,
+    private _cd: ChangeDetectorRef,
   ) {}
+
+  get matMenuTrigger() {
+    if (this.useInternalTrigger) {
+      return this._internalMatMenuTrigger;
+    } else {
+      return this._externalMatMenuTrigger;
+    }
+  }
 
   public ngOnInit() {
     this.subscribeToResChanges();
@@ -71,43 +109,88 @@ export class FsMenuComponent implements OnInit {
     ]);
 
     layoutChanges
+      .pipe(
+        debounceTime(500)
+      )
       .subscribe(result => {
         // Set mobile/desktop flag
         this.mobile = result.breakpoints[FsMenuComponent.MOBILE_BREAKPOINT];
 
         if (this.opened) {
+
           // Flag that menus was closed not by user
           this.resolutionChanged = true;
 
+          // Detect changes because for strategies like OnPush if won't detected by default
+          this._cd.detectChanges();
+
           if (this.mobile) {
-            this.openSheet();
+            this.closeMatMenu();
+            this.openSheetMenu();
           } else {
-            this.closeSheet();
+            this.closeSheetMenu();
 
             // Must be here because we should wait till menuTrigger will be catched by @ViewChild
             setTimeout(() => {
-              this.menuTrigger.openMenu();
+              if (this.matMenuTrigger) {
+                this.matMenuTrigger.openMenu();
+              }
             });
           }
+        } else {
+          // Detect changes because for strategies like OnPush if won't detected by default
+          this._cd.detectChanges();
         }
       });
   }
 
   /**
-   * Open Mat Menu
-   * @param menu { MatMenuTrigger }
+   * Open fs menu depends from mode
    */
-  public openMenu(menu: MatMenuTrigger) {
+  public openMenu() {
+    if (this.mobile) {
+      this.openSheetMenu();
+    } else {
+      this.openMatMenu();
+    }
+
+    this._cd.detectChanges();
+  }
+
+  /**
+   * Close fs menu depends from mode
+   */
+  public closeMenu() {
+    if (this.mobile) {
+      this.closeSheetMenu();
+    } else {
+      this.closeMatMenu();
+    }
+  }
+
+  /**
+   * Open Mat Menu
+   */
+  public openMatMenu() {
     this.opened = true;
     this.resolutionChanged = false;
 
-    menu.openMenu();
+    this.matMenuTrigger.openMenu();
   }
 
   /**
    * Close Mat Menu
    */
-  public closeMenu() {
+  public closeMatMenu() {
+    if (this.matMenuTrigger) {
+      this.matMenuTrigger.closeMenu();
+    }
+  }
+
+  /**
+   * After menu close event
+   */
+  public closedMatMenu() {
     if (!this.resolutionChanged) {
       this.opened = false;
     }
@@ -118,7 +201,7 @@ export class FsMenuComponent implements OnInit {
   /**
    * Open Mat Bottom Sheet
    */
-  public openSheet() {
+  public openSheetMenu() {
     this._activeSheetRef = this._bottomSheet.open(FsBottomSheetComponent, {
       data: { items: this.items, }
     });
@@ -137,7 +220,7 @@ export class FsMenuComponent implements OnInit {
   /**
    * Close Mat Bottom Sheet
    */
-  public closeSheet() {
+  public closeSheetMenu() {
     if (this._activeSheetRef) {
       this._activeSheetRef.dismiss();
     }

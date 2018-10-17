@@ -1,21 +1,36 @@
 <ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
-  <button mat-icon-button
+  <button type="button"
+          mat-icon-button
+          *ngIf="useInternalTrigger"
           [matMenuTriggerFor]="fsMenu"
           #menuTrigger="matMenuTrigger"
           (click)="openMenu(menuTrigger)"
   >
     <mat-icon>more_vert</mat-icon>
   </button>
-
-  <mat-menu #fsMenu="matMenu" (closed)="closeMenu()">
-    <ng-template ngFor [ngForOf]="items" let-item>
-      <button mat-menu-item (click)="item.elementRef.click($event)">
-        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-      </button>
-    </ng-template>
-  </mat-menu>
 </ng-template>
 
 <ng-template #sheetMenu>
-  <button mat-icon-button (click)="openSheet()"><mat-icon>more_vert</mat-icon></button>
+  <button type="button"
+          mat-icon-button
+          *ngIf="useInternalTrigger"
+          (click)="openMenu()"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </ng-template>
+
+
+<mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()">
+  <ng-template ngFor [ngForOf]="items" let-item>
+    <button type="button"
+            mat-menu-item
+            *ngIf="!item.elementRef.hidden"
+            (click)="item.elementRef.click($event)"
+            [ngClass]="item.elementRef.cssClass"
+            [id]="item.elementRef.cssId"
+    >
+      <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+    </button>
+  </ng-template>
+</mat-menu>
