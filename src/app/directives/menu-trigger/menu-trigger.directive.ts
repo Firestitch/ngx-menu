@@ -14,7 +14,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
-import { FsMenuComponent } from '../../components/fs-menu';
+import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 
 
 @Directive({

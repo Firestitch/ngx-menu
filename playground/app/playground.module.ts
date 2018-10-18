@@ -1,5 +1,3 @@
-import './styles.scss';
-
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,13 +6,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FsExampleModule } from '@firestitch/example';
 
-import { AppComponent } from './app/app.component';
-import { FsMenuModule } from '../src';
-import { AppMaterialModule } from './app/material.module';
+import { FsMenuModule } from 'fs-menu';
+
+import { AppComponent } from './app.component';
+import { AppMaterialModule } from './material.module';
 import {
   ExampleComponent,
   ExamplesComponent,
-} from './app/components';
+} from './components';
 
 
 const routes: Routes = [

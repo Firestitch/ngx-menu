@@ -11,9 +11,10 @@ import { MatBottomSheet, MatMenu, MatMenuTrigger } from '@angular/material';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet/typings/bottom-sheet-ref';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { FsBottomSheetComponent } from './bottom-sheet';
-import { MenuItemDirective } from '../../directives';
 import { debounceTime } from 'rxjs/operators';
+
+import { FsBottomSheetComponent } from './bottom-sheet';
+import { MenuItemDirective } from '../../directives/menu-item/menu-item.directive';
 
 
 @Component({
@@ -57,8 +58,6 @@ export class FsMenuComponent implements OnInit {
   set internalMatMenuTrigger(val) {
     if (val) {
       this.useInternalTrigger = true;
-    } else {
-      debugger;
     }
 
     this._internalMatMenuTrigger = val;

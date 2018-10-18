@@ -13,6 +13,7 @@ import {
   selector: '[fs-menu-item]'
 })
 export class MenuItemDirective implements OnChanges, OnDestroy {
+  @Input('fsClass') public ngClass = [];
   @Input('class') public cssClass = '';
   @Input('id') public cssId = '';
   @Input() public hidden = false;

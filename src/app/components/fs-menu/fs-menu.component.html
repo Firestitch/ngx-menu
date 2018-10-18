@@ -4,7 +4,7 @@
           *ngIf="useInternalTrigger"
           [matMenuTriggerFor]="fsMenu"
           #menuTrigger="matMenuTrigger"
-          (click)="openMenu(menuTrigger)"
+          (click)="openMenu()"
   >
     <mat-icon>more_vert</mat-icon>
   </button>
@@ -27,7 +27,8 @@
             mat-menu-item
             *ngIf="!item.elementRef.hidden"
             (click)="item.elementRef.click($event)"
-            [ngClass]="item.elementRef.cssClass"
+            [class]="item.elementRef.cssClass"
+            [ngClass]="item.elementRef.ngClass"
             [id]="item.elementRef.cssId"
     >
       <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>

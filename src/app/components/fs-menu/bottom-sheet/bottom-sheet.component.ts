@@ -19,7 +19,8 @@ import { takeUntil } from 'rxjs/operators';
         <a mat-list-item
            *ngIf="!item.elementRef.hidden"
            (click)="click($event, item)"
-           [ngClass]="item.elementRef.cssClass"
+           [class]="item.elementRef.cssClass"
+           [ngClass]="item.elementRef.ngClass"
            [id]="item.elementRef.cssId"
         >
           <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
@@ -67,6 +68,7 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
    * For example we must start detect changes if [hidden] param was changed
    */
   private subscribeToChanges() {
+
     if (this.data.items && this.data.items.length > 0) {
       const itemsObservables = this.data.items.reduce((acc, item) => {
 
@@ -82,7 +84,6 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
           takeUntil(this.destroy$)
         )
         .subscribe(() => {
-          console.log('hh?');
           this._cd.detectChanges();
         })
 
