@@ -20,7 +20,7 @@ import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 @Directive({
   selector: '[fsMenuTriggerFor]'
 })
-export class MenuTriggerDirective extends MatMenuTrigger implements AfterContentInit {
+export class FsMenuTriggerDirective extends MatMenuTrigger implements AfterContentInit {
 
   @Input('fsMenuTriggerFor') fsMenu: FsMenuComponent;
 

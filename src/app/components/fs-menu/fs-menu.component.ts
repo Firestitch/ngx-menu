@@ -13,8 +13,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { debounceTime } from 'rxjs/operators';
 
-import { FsBottomSheetComponent } from './bottom-sheet';
-import { MenuItemDirective } from '../../directives/menu-item/menu-item.directive';
+import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
+import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
 
 
 @Component({
@@ -41,13 +41,13 @@ export class FsMenuComponent implements OnInit {
   public _resolutionChanged = false;
   public initialized = false;
 
-  @ContentChildren(MenuItemDirective, { read: TemplateRef })
+  @ContentChildren(FsMenuItemDirective, { read: TemplateRef })
   set itemsTemplates(value) {
     this._itemsTemplates = value.toArray();
     this.updateItems();
   }
 
-  @ContentChildren(MenuItemDirective)
+  @ContentChildren(FsMenuItemDirective)
   set itemsElements(value) {
     this._itemsElements = value.toArray();
     this.updateItems();

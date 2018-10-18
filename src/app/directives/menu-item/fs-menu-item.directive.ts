@@ -12,7 +12,7 @@ import {
 @Directive({
   selector: '[fs-menu-item]'
 })
-export class MenuItemDirective implements OnChanges, OnDestroy {
+export class FsMenuItemDirective implements OnChanges, OnDestroy {
   @Input('fsClass') public ngClass = [];
   @Input('class') public cssClass = '';
   @Input('id') public cssId = '';
