@@ -22,7 +22,7 @@
   "scripts": {
     "package": "ng build fs-menu",
     "package:publish": "cd package && npm publish --access=public",
-    "demo:build": "cd tools && npm run demo:build",
+    "demo:build": "ng build --aot --prod",
     "serve": "ng serve"
   },
   "devDependencies": {

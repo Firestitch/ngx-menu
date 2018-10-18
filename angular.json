@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fs-menu-lib",
+            "outputPath": "demo",
             "index": "playground/index.html",
             "main": "playground/main.ts",
             "polyfills": "playground/polyfills.ts",
@@ -31,8 +31,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "playground/environments/environment.ts",
+                  "with": "playground/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -67,17 +67,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
+            "main": "playground/test.ts",
+            "polyfills": "playground/polyfills.ts",
+            "tsConfig": "playground/tsconfig.spec.json",
+            "karmaConfig": "playground/karma.conf.js",
             "styles": [
               "playground/styles.scss"
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "playground/favicon.ico",
+              "playground/assets"
             ]
           }
         },
@@ -85,8 +85,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "playground/tsconfig.app.json",
+              "playground/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
