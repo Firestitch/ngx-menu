@@ -1,0 +1,15 @@
+<a [fsMenuTriggerFor]="menu">Click me</a>
+
+<fs-menu #menu>
+  <ng-template fs-menu-item
+               (click)="clicked('Item 1')"
+               class="custom-class"
+               [fsClass]="['custom-ng-class']"
+               [hidden]="show"
+  >
+    Item 1
+  </ng-template>
+  <ng-template fs-menu-item (click)="clicked('Item 2')">
+    Item 2
+  </ng-template>
+</fs-menu>

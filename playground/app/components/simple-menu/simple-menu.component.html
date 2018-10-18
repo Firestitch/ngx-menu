@@ -1,0 +1,13 @@
+<fs-menu>
+  <ng-template fs-menu-item
+               (click)="clicked('Item 1')"
+               class="test-123"
+               [fsClass]="['test-555']"
+               [hidden]="show"
+  >
+    Item 1
+  </ng-template>
+  <ng-template fs-menu-item (click)="clicked('Item 2')">
+    Item 2
+  </ng-template>
+</fs-menu>

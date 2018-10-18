@@ -11,7 +11,8 @@ import { FsMenuModule } from 'fs-menu';
 import { AppComponent } from './app.component';
 import { AppMaterialModule } from './material.module';
 import {
-  ExampleComponent,
+  SimpleMenuComponent,
+  RemoteMenuComponent,
   ExamplesComponent,
 } from './components';
 
@@ -36,7 +37,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ExamplesComponent,
-    ExampleComponent
+    SimpleMenuComponent,
+    RemoteMenuComponent,
   ],
   providers: [
   ],
