@@ -27,7 +27,7 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements AfterConte
   @HostListener('mousedown')
   @HostListener('keydown')
   @HostListener('click')
-  public click(event) {
+  public click() {
     if (this.fsMenu.opened) {
       this.fsMenu.closeMenu();
     } else {
