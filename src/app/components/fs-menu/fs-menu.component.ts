@@ -5,16 +5,18 @@ import {
   ContentChildren,
   ViewChild,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 
 import { MatBottomSheet, MatMenu, MatMenuTrigger } from '@angular/material';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet/typings/bottom-sheet-ref';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
 import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.dir
   templateUrl: 'fs-menu.component.html',
   styleUrls: [ 'fs-menu.component.scss' ],
 })
-export class FsMenuComponent implements OnInit {
+export class FsMenuComponent implements OnInit, OnDestroy {
 
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
@@ -79,6 +81,8 @@ export class FsMenuComponent implements OnInit {
   // Active bottom sheet that was opened
   private _activeSheetRef: MatBottomSheetRef = null;
 
+  private _destroy$ = new Subject();
+
   constructor(
     private _bottomSheet: MatBottomSheet,
     private _breakpointObserver: BreakpointObserver,
@@ -98,6 +102,13 @@ export class FsMenuComponent implements OnInit {
     this.initialized = true;
   }
 
+  public ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
+
+    this._cd.detach();
+  }
+
   /**
    * Subscribe to window resolution changes
    * and switch between mobile and desktop
@@ -109,7 +120,8 @@ export class FsMenuComponent implements OnInit {
 
     layoutChanges
       .pipe(
-        debounceTime(500)
+        debounceTime(500),
+        takeUntil(this._destroy$),
       )
       .subscribe(result => {
         // Set mobile/desktop flag
