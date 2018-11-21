@@ -1,6 +1,6 @@
 {
-  "name": "@firestitch/menu",
-  "description": "@firestitch/menu",
+  "name": "firestitch-menu-lib",
+  "description": "firestitch-menu-lib",
   "version": "0.1.0",
   "repository": {
     "type": "git",
