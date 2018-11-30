@@ -5,6 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FsExampleModule } from '@firestitch/example';
+import { FsMessageModule } from '@firestitch/message';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { FsMenuModule } from 'fs-menu';
 
@@ -26,10 +29,12 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FsMenuModule,
+    FsMessageModule.forRoot(),
+    ToastrModule.forRoot({ preventDuplicates: true }),
+    FsExampleModule.forRoot(),
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
-    FsExampleModule,
     RouterModule.forRoot(routes),
   ],
   entryComponents: [
