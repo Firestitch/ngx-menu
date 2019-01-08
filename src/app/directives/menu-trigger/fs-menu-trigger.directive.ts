@@ -22,9 +22,10 @@ import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 })
 export class FsMenuTriggerDirective extends MatMenuTrigger implements AfterContentInit {
 
-  @Input('fsMenuTriggerFor') fsMenu: FsMenuComponent;
+  @Input('fsMenuTriggerFor') public fsMenu: FsMenuComponent = null;
 
-  @HostListener('mousedown')
+  // WARNING: mousedown event has conflict with click in Firefox
+  // @HostListener('mousedown', ['$event'])
   @HostListener('keydown')
   @HostListener('click')
   public click() {
