@@ -21,7 +21,7 @@
 </ng-template>
 
 
-<mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()">
+<mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()" [class]="class">
   <ng-template ngFor [ngForOf]="items" let-item>
     <button type="button"
             mat-menu-item

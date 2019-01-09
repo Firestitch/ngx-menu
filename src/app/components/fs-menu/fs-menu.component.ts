@@ -2,6 +2,7 @@ import {
   TemplateRef,
   ChangeDetectorRef,
   Component,
+  Input,
   ContentChildren,
   ViewChild,
   OnInit,
@@ -25,6 +26,8 @@ import { Subject } from 'rxjs';
   styleUrls: [ 'fs-menu.component.scss' ],
 })
 export class FsMenuComponent implements OnInit, OnDestroy {
+
+  @Input() public class = null;
 
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
