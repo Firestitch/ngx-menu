@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fs-menu-lib": {
+    "fs-package-app": {
       "root": "",
       "sourceRoot": "playground",
       "projectType": "application",
@@ -50,19 +50,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fs-menu-lib:build",
+            "browserTarget": "fs-package-app:build",
             "port": 8000
           },
           "configurations": {
             "production": {
-              "browserTarget": "fs-menu-lib:build:production"
+              "browserTarget": "fs-package-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fs-menu-lib:build"
+            "browserTarget": "fs-package-app:build"
           }
         },
         "test": {
@@ -96,7 +96,7 @@
         }
       }
     },
-    "fs-menu-lib-e2e": {
+    "fs-package-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -104,11 +104,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "fs-menu-lib:serve"
+            "devServerTarget": "fs-package-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "fs-menu-lib:serve:production"
+              "devServerTarget": "fs-package-app:serve:production"
             }
           }
         },
@@ -123,9 +123,9 @@
         }
       }
     },
-    "fs-menu": {
+    "fs-package": {
       "root": "src",
-      "sourceRoot": "src",
+      "sourceRoot": "",
       "projectType": "library",
       "prefix": "fs",
       "architect": {
@@ -159,5 +159,5 @@
       }
     }
   },
-  "defaultProject": "fs-menu-lib"
+  "defaultProject": "fs-package-app"
 }
