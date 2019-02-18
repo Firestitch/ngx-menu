@@ -222,13 +222,17 @@ export class FsMenuComponent implements OnInit, OnDestroy {
 
     this.opened = true;
 
-    this._activeSheetRef.afterDismissed().subscribe(() => {
-      if (!this.resolutionChanged) {
-        this.opened = false;
-      }
+    this._activeSheetRef.afterDismissed()
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        if (!this.resolutionChanged) {
+          this.opened = false;
+        }
 
-      this.resolutionChanged = false;
-    })
+        this.resolutionChanged = false;
+      })
   }
 
   /**
