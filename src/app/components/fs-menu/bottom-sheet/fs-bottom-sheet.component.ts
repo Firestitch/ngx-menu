@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'fs-bottom-sheet',
   template: `
     <mat-nav-list>
-      <ng-template ngFor [ngForOf]="data.items" let-item>
+      <ng-template ngFor [ngForOf]="data.items" [ngForTrackBy]="trackBy" let-item>
         <a mat-list-item
            *ngIf="!item.elementRef.hidden"
            (click)="click($event, item)"
@@ -61,6 +61,14 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
     }
 
     this._bottomSheetRef.dismiss();
+  }
+
+  /**
+   * For improve ngFor perf
+   * @param index
+   */
+  public trackBy(index) {
+    return index;
   }
 
   /**

@@ -245,6 +245,14 @@ export class FsMenuComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * For improve ngFor perf
+   * @param index
+   */
+  public trackBy(index) {
+    return index;
+  }
+
+  /**
    * Update items for collect templateRefs and elementRefs
    */
   private updateItems() {

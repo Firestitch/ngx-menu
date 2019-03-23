@@ -22,7 +22,7 @@
 
 
 <mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()" [class]="class">
-  <ng-template ngFor [ngForOf]="items" let-item>
+  <ng-template ngFor [ngForOf]="items" [ngForTrackBy]="trackBy" let-item>
     <button type="button"
             mat-menu-item
             *ngIf="!item.elementRef.hidden"
