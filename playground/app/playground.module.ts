@@ -16,6 +16,7 @@ import {
   SimpleMenuComponent,
   RemoteMenuComponent,
   ExamplesComponent,
+  DialogComponent
 } from './components';
 
 
@@ -37,12 +38,14 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
   ],
   entryComponents: [
+    DialogComponent
   ],
   declarations: [
     AppComponent,
     ExamplesComponent,
     SimpleMenuComponent,
     RemoteMenuComponent,
+    DialogComponent
   ],
   providers: [
   ],

@@ -12,7 +12,7 @@ import { FsMenuComponent } from './components/fs-menu/fs-menu.component';
 import { FsBottomSheetComponent } from './components/fs-menu/bottom-sheet/fs-bottom-sheet.component';
 import { FsMenuItemDirective } from './directives/menu-item/fs-menu-item.directive';
 import { FsMenuTriggerDirective } from './directives/menu-trigger/fs-menu-trigger.directive';
-// import { FsComponentService } from './services';
+
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { FsMenuTriggerDirective } from './directives/menu-trigger/fs-menu-trigge
     MatIconModule,
     MatMenuModule,
     MatBottomSheetModule,
-    MatListModule,
+    MatListModule
   ],
   exports: [
     FsMenuComponent,

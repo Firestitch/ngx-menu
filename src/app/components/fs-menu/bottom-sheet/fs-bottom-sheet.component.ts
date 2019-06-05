@@ -10,16 +10,14 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material';
 import { concat } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
 @Component({
   selector: 'fs-bottom-sheet',
   template: `
     <mat-nav-list>
       <ng-template ngFor [ngForOf]="data.items" [ngForTrackBy]="trackBy" let-item>
-        <a mat-list-item
-           *ngIf="!item.elementRef.hidden"
+        <a *ngIf="!item.elementRef.hidden"
            (click)="click($event, item)"
-           [class]="item.elementRef.cssClass"
+           [class]="'mat-menu-item ' + item.elementRef.cssClass"
            [ngClass]="item.elementRef.ngClass"
            [id]="item.elementRef.cssId"
         >
@@ -28,6 +26,7 @@ import { takeUntil } from 'rxjs/operators';
       </ng-template>
     </mat-nav-list>
   `,
+  styleUrls: ['fs-bottom-sheet.component.scss']
 })
 export class FsBottomSheetComponent implements OnInit, OnDestroy {
 
@@ -36,7 +35,7 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _bottomSheetRef: MatBottomSheetRef<any>,
-    private _cd: ChangeDetectorRef,
+    private _cd: ChangeDetectorRef
   ) {}
 
   public ngOnInit() {
@@ -56,9 +55,14 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
   public click(event, item) {
     event.preventDefault();
 
-    if (item && item.elementRef && item.elementRef.click) {
-      item.elementRef.click(event)
-    }
+    const subscription = this._bottomSheetRef.afterDismissed()
+    .subscribe(() => {
+
+      if (item && item.elementRef && item.elementRef.click) {
+        item.elementRef.click(event)
+      }
+      subscription.unsubscribe();
+    });
 
     this._bottomSheetRef.dismiss();
   }

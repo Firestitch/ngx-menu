@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog';
 
 
 @Component({
@@ -7,9 +9,14 @@ import { Component } from '@angular/core';
 })
 export class SimpleMenuComponent {
 
-  constructor() {}
+  constructor(private _dialog: MatDialog) {}
 
   public clicked(item) {
     console.log(item + ' has been clicked');
+  }
+
+  public openDialog(e) {
+    this._dialog.open(DialogComponent, {
+    });
   }
 }
