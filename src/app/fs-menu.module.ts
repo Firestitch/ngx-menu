@@ -38,16 +38,12 @@ import { FsMenuTriggerDirective } from './directives/menu-trigger/fs-menu-trigge
 
     FsMenuItemDirective,
     FsMenuTriggerDirective,
-  ],
-  providers: [
-    // FsComponentService,
-  ],
+  ]
 })
 export class FsMenuModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: FsMenuModule,
-      // providers: [FsComponentService]
+      ngModule: FsMenuModule
     };
   }
 }

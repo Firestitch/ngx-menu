@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FsExampleModule } from '@firestitch/example';
 import { FsMessageModule } from '@firestitch/message';
-import { FsMenuModule } from '@firestitch/menu';
+import { FsMenuModule } from 'package';
 
 import { ToastrModule } from 'ngx-toastr';
 
