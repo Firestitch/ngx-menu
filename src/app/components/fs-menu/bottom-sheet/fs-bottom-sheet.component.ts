@@ -14,19 +14,24 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'fs-bottom-sheet',
   template: `
     <mat-nav-list>
-      <ng-template ngFor [ngForOf]="data.items" [ngForTrackBy]="trackBy" let-item>
-        <a *ngIf="!item.elementRef.hidden"
-           (click)="click($event, item)"
-           [class]="'mat-menu-item ' + item.elementRef.cssClass"
-           [ngClass]="item.elementRef.ngClass"
-           [id]="item.elementRef.cssId"
-        >
-          <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-        </a>
-      </ng-template>
+      <div class="fs-menu-title" *ngIf="data.titleTemplate">
+        <ng-template [ngTemplateOutlet]="data.titleTemplate"></ng-template>
+      </div>
+      <div class="fs-menu-container" [ngClass]="{ 'with-title': !!data.titleTemplate }">
+        <ng-template ngFor [ngForOf]="data.items" [ngForTrackBy]="trackBy" let-item>
+          <a *ngIf="!item.elementRef.hidden"
+             (click)="click($event, item)"
+             [class]="'mat-menu-item ' + item.elementRef.cssClass"
+             [ngClass]="item.elementRef.ngClass"
+             [id]="item.elementRef.cssId"
+          >
+            <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+          </a>
+        </ng-template>
+      </div>
     </mat-nav-list>
   `,
-  styleUrls: ['fs-bottom-sheet.component.scss']
+  styleUrls: ['./fs-bottom-sheet.component.scss']
 })
 export class FsBottomSheetComponent implements OnInit, OnDestroy {
 
@@ -64,7 +69,9 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
       subscription.unsubscribe();
     });
 
-    this._bottomSheetRef.dismiss();
+    if (item.dismissAfterClick) {
+      this._bottomSheetRef.dismiss();
+    }
   }
 
   /**

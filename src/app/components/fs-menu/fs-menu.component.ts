@@ -6,7 +6,7 @@ import {
   ContentChildren,
   ViewChild,
   OnInit,
-  OnDestroy,
+  OnDestroy, ContentChild,
 } from '@angular/core';
 
 import { MatBottomSheet, MatMenu, MatMenuTrigger } from '@angular/material';
@@ -18,6 +18,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
 import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
 import { Subject } from 'rxjs';
+import { FsMenuTitleDirective } from '../../directives/menu-title/fs-menu-title.directive';
 
 
 @Component({
@@ -45,6 +46,9 @@ export class FsMenuComponent implements OnInit, OnDestroy {
   }
   public _resolutionChanged = false;
   public initialized = false;
+
+  @ContentChild(FsMenuTitleDirective, { read: TemplateRef })
+  public titleTemplate;
 
   @ContentChildren(FsMenuItemDirective, { read: TemplateRef })
   set itemsTemplates(value) {
@@ -217,7 +221,7 @@ export class FsMenuComponent implements OnInit, OnDestroy {
    */
   public openSheetMenu() {
     this._activeSheetRef = this._bottomSheet.open(FsBottomSheetComponent, {
-      data: { items: this.items, }
+      data: { items: this.items, titleTemplate: this.titleTemplate }
     });
 
     this.opened = true;

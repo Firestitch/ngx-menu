@@ -22,16 +22,21 @@
 
 
 <mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()" [class]="class">
-  <ng-template ngFor [ngForOf]="items" [ngForTrackBy]="trackBy" let-item>
-    <button type="button"
-            mat-menu-item
-            *ngIf="!item.elementRef.hidden"
-            (click)="item.elementRef.click($event)"
-            [class]="item.elementRef.cssClass"
-            [ngClass]="item.elementRef.ngClass"
-            [id]="item.elementRef.cssId"
-    >
-      <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-    </button>
-  </ng-template>
+  <div class="fs-menu-title" *ngIf="titleTemplate">
+    <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+  </div>
+  <div class="fs-menu-container" [ngClass]="{ 'with-title': !!titleTemplate }">
+    <ng-template ngFor [ngForOf]="items" [ngForTrackBy]="trackBy" let-item>
+      <button type="button"
+              mat-menu-item
+              *ngIf="!item.elementRef.hidden"
+              (click)="item.elementRef.click($event)"
+              [class]="item.elementRef.cssClass"
+              [ngClass]="item.elementRef.ngClass"
+              [id]="item.elementRef.cssId"
+      >
+        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+      </button>
+    </ng-template>
+  </div>
 </mat-menu>

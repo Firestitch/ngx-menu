@@ -1,0 +1,12 @@
+.fs-menu-title {
+  margin-left: 15px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.fs-menu-container {
+  &.with-title {
+    margin-left: 15px;
+  }
+}

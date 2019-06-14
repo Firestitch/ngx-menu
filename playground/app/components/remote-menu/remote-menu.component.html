@@ -1,6 +1,7 @@
 <a [fsMenuTriggerFor]="menu">Click me</a>
 
 <fs-menu #menu>
+  <ng-template fs-menu-title>Share</ng-template>
   <ng-template fs-menu-item
                (click)="clicked('Item 1')"
                class="custom-class"
