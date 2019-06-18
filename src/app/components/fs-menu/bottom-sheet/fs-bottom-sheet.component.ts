@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material';
 import { concat } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'fs-bottom-sheet',
@@ -61,15 +61,19 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
     event.preventDefault();
 
     const subscription = this._bottomSheetRef.afterDismissed()
-    .subscribe(() => {
+      .pipe(
+        take(1),
+      )
+      .subscribe(() => {
 
-      if (item && item.elementRef && item.elementRef.click) {
-        item.elementRef.click(event)
-      }
-      subscription.unsubscribe();
-    });
+        if (item && item.elementRef && item.elementRef.click) {
+          item.elementRef.click(event)
+        }
 
-    if (item.dismissAfterClick) {
+        subscription.unsubscribe();
+      });
+
+    if (item && item.elementRef && item.elementRef.dismissAfterClick) {
       this._bottomSheetRef.dismiss();
     }
   }
