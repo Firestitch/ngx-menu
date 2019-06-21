@@ -1,12 +1,9 @@
 .fs-menu-title {
-  margin-left: 15px;
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 15px;
+  color: rgba(0,0,0,.54);
 }
 
-.fs-menu-container {
-  &.with-title {
-    margin-left: 15px;
+.fs-menu-container.with-title {
+  button {
+    padding: 0 32px;
   }
 }

@@ -22,7 +22,7 @@
 
 
 <mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()" [class]="class">
-  <div class="fs-menu-title" *ngIf="titleTemplate">
+  <div class="mat-menu-item fs-menu-title" *ngIf="titleTemplate" disabled>
     <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
   </div>
   <div class="fs-menu-container" [ngClass]="{ 'with-title': !!titleTemplate }">
@@ -33,8 +33,7 @@
               (click)="item.elementRef.click($event)"
               [class]="item.elementRef.cssClass"
               [ngClass]="item.elementRef.ngClass"
-              [id]="item.elementRef.cssId"
-      >
+              [id]="item.elementRef.cssId">
         <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
       </button>
     </ng-template>

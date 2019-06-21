@@ -5,11 +5,32 @@
   <ng-template fs-menu-item
                (click)="clicked('Item 1')"
                class="custom-class"
-               [fsClass]="['custom-ng-class']"
-  >
+               [fsClass]="['custom-ng-class']">
     Item 1
   </ng-template>
   <ng-template fs-menu-item (click)="clicked('Item 2')">
     Item 2
   </ng-template>
 </fs-menu>
+
+<!--
+<fs-menu #menu>
+  <ng-template fs-menu-group label="Share">
+    <ng-template fs-menu-item
+                (click)="clicked('Item 1')"
+                class="custom-class"
+                [fsClass]="['custom-ng-class']">
+      Item 1
+    </ng-template>
+    <ng-template fs-menu-item (click)="clicked('Item 2')">
+      Item 2
+    </ng-template>
+  </ng-template>
+
+  <ng-template fs-menu-group label="Other">
+    <ng-template fs-menu-item>
+      Help Me!
+    </ng-template>
+  </ng-template>
+</fs-menu>
+ -->
