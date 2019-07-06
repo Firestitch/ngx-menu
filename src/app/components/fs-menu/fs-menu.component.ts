@@ -6,19 +6,22 @@ import {
   ContentChildren,
   ViewChild,
   OnInit,
-  OnDestroy, ContentChild,
+  OnDestroy,
+  ContentChild,
 } from '@angular/core';
 
 import { MatBottomSheet, MatMenu, MatMenuTrigger } from '@angular/material';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet/typings/bottom-sheet-ref';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
+import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
 import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
+
 import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
-import { Subject } from 'rxjs';
 import { FsMenuTitleDirective } from '../../directives/menu-title/fs-menu-title.directive';
+import { FsMenuGroupDirective } from '../../directives/menu-group/fs-menu-group.directive';
 
 
 @Component({
@@ -32,24 +35,30 @@ export class FsMenuComponent implements OnInit, OnDestroy {
 
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
+  public groups = [];
+
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
   public items = [];
 
   public useInternalTrigger = true;
   public mobile = false;
   public opened = false;
-  set resolutionChanged(val) {
-    this._resolutionChanged = val;
-  }
-  get resolutionChanged() {
-    return this._resolutionChanged;
-  }
-  public _resolutionChanged = false;
   public initialized = false;
+  public groupMode = false;
 
+  /** Title **/
   @ContentChild(FsMenuTitleDirective, { read: TemplateRef })
   public titleTemplate;
 
+  /** Groups **/
+  @ContentChildren(FsMenuGroupDirective)
+  set groupsElements(value) {
+    this._groupsElements = value.toArray();
+    this.groupMode = this._groupsElements && this._groupsElements.length > 0;
+    this.updateGroups();
+  }
+
+  /** Items **/
   @ContentChildren(FsMenuItemDirective, { read: TemplateRef })
   set itemsTemplates(value) {
     this._itemsTemplates = value.toArray();
@@ -82,8 +91,14 @@ export class FsMenuComponent implements OnInit, OnDestroy {
 
   private _internalMatMenuTrigger;
   private _externalMatMenuTrigger;
+
+  private _groupsTemplates;
+  private _groupsElements;
+
   private _itemsTemplates;
   private _itemsElements;
+
+  private _resolutionChanged = false;
 
   // Active bottom sheet that was opened
   private _activeSheetRef: MatBottomSheetRef = null;
@@ -95,6 +110,14 @@ export class FsMenuComponent implements OnInit, OnDestroy {
     private _breakpointObserver: BreakpointObserver,
     private _cd: ChangeDetectorRef,
   ) {}
+
+  set resolutionChanged(val) {
+    this._resolutionChanged = val;
+  }
+
+  get resolutionChanged() {
+    return this._resolutionChanged;
+  }
 
   get matMenuTrigger() {
     if (this.useInternalTrigger) {
@@ -249,14 +272,6 @@ export class FsMenuComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * For improve ngFor perf
-   * @param index
-   */
-  public trackBy(index) {
-    return index;
-  }
-
-  /**
    * Update items for collect templateRefs and elementRefs
    */
   private updateItems() {
@@ -268,6 +283,20 @@ export class FsMenuComponent implements OnInit, OnDestroy {
         templateRef: this._itemsTemplates[index],
         elementRef: this._itemsElements[index]
       });
+
+      return acc;
+    }, []);
+  }
+
+  /**
+   * Update items for collect templateRefs and elementRefs
+   */
+  private updateGroups() {
+    if (!this._groupsElements) { return; }
+
+    this.groups = this._groupsElements.reduce((acc, item) => {
+
+      acc.push(item);
 
       return acc;
     }, []);
