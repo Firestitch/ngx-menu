@@ -16,7 +16,8 @@ import {
   SimpleMenuComponent,
   RemoteMenuComponent,
   ExamplesComponent,
-  DialogComponent
+  DialogComponent,
+  GroupsMenuComponent,
 } from './components';
 
 
@@ -45,7 +46,8 @@ const routes: Routes = [
     ExamplesComponent,
     SimpleMenuComponent,
     RemoteMenuComponent,
-    DialogComponent
+    GroupsMenuComponent,
+    DialogComponent,
   ],
   providers: [
   ],

@@ -1,0 +1,31 @@
+<a [fsMenuTriggerFor]="menu">Click me</a>
+
+<fs-menu #menu>
+  <fs-menu-group label="Group 1">
+    <ng-template fs-menu-item
+                 class="custom-class"
+                 [fsClass]="['custom-ng-class']"
+    >
+      Sub Item 1
+    </ng-template>
+
+    <ng-template fs-menu-item>
+      Sub Item 2
+    </ng-template>
+    <ng-template fs-menu-item>
+      Sub Item 3
+    </ng-template>
+  </fs-menu-group>
+
+  <fs-menu-group label="Group 2">
+    <ng-template fs-menu-item>
+      Sub Item 4
+    </ng-template>
+    <ng-template fs-menu-item>
+      Sub Item 5
+    </ng-template>
+    <ng-template fs-menu-item>
+      Sub Item 6
+    </ng-template>
+  </fs-menu-group>
+</fs-menu>

@@ -1,0 +1,12 @@
+<ng-template ngFor [ngForOf]="items" [ngForTrackBy]="trackBy" let-item>
+  <button type="button"
+          mat-menu-item
+          *ngIf="!item.elementRef.hidden"
+          (click)="item.elementRef.click($event)"
+          [class]="item.elementRef.cssClass"
+          [ngClass]="item.elementRef.ngClass"
+          [id]="item.elementRef.cssId"
+  >
+    <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+  </button>
+</ng-template>
