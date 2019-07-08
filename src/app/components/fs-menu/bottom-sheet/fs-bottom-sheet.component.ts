@@ -12,25 +12,7 @@ import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'fs-bottom-sheet',
-  template: `
-    <mat-nav-list>
-      <div class="fs-menu-title" *ngIf="data.titleTemplate">
-        <ng-template [ngTemplateOutlet]="data.titleTemplate"></ng-template>
-      </div>
-      <div class="fs-menu-container" [ngClass]="{ 'with-title': !!data.titleTemplate }">
-        <ng-template ngFor [ngForOf]="data.items" [ngForTrackBy]="trackBy" let-item>
-          <a *ngIf="!item.elementRef.hidden"
-             (click)="click($event, item)"
-             [class]="'mat-menu-item ' + item.elementRef.cssClass"
-             [ngClass]="item.elementRef.ngClass"
-             [id]="item.elementRef.cssId"
-          >
-            <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-          </a>
-        </ng-template>
-      </div>
-    </mat-nav-list>
-  `,
+  templateUrl: './fs-bottom-sheet.component.html',
   styleUrls: ['./fs-bottom-sheet.component.scss']
 })
 export class FsBottomSheetComponent implements OnInit, OnDestroy {
@@ -50,32 +32,6 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  /**
-   * Click on element
-   * @param event
-   * @param item
-   */
-  public click(event, item) {
-    event.preventDefault();
-
-    const subscription = this._bottomSheetRef.afterDismissed()
-      .pipe(
-        take(1),
-      )
-      .subscribe(() => {
-
-        if (item && item.elementRef && item.elementRef.click) {
-          item.elementRef.click(event)
-        }
-
-        subscription.unsubscribe();
-      });
-
-    if (item && item.elementRef && item.elementRef.dismissAfterClick) {
-      this._bottomSheetRef.dismiss();
-    }
   }
 
   /**

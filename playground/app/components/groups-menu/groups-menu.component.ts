@@ -9,7 +9,7 @@ export class GroupsMenuComponent {
 
   constructor() {}
 
-  public clicked(item) {
-    console.log(item + ' has been clicked');
+  public clicked() {
+    console.log('Item has been clicked');
   }
 }

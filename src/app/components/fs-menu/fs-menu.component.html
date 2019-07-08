@@ -25,12 +25,7 @@
   <div class="mat-menu-item fs-menu-title" *ngIf="titleTemplate" disabled>
     <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
   </div>
-  <div class="fs-menu-container" [ngClass]="{ 'with-title': !!titleTemplate, 'with-groups': groupMode }">
-    <ng-container *ngIf="groupMode; else noGroup">
-      <fs-menu-group-items-list [groups]="groups"></fs-menu-group-items-list>
-    </ng-container>
-    <ng-template #noGroup>
-      <fs-menu-items-list [items]="items"></fs-menu-items-list>
-    </ng-template>
+  <div class="fs-menu-container" [ngClass]="{ 'with-title': !!titleTemplate }">
+    <fs-menu-items-list [items]="items"></fs-menu-items-list>
   </div>
 </mat-menu>

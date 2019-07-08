@@ -21,7 +21,7 @@ import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component
 
 import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
 import { FsMenuTitleDirective } from '../../directives/menu-title/fs-menu-title.directive';
-import { FsMenuGroupDirective } from '../../directives/menu-group/fs-menu-group.directive';
+import { itemsBuilder } from '../../helpers/items-builer';
 
 
 @Component({
@@ -35,8 +35,6 @@ export class FsMenuComponent implements OnInit, OnDestroy {
 
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
-  public groups = [];
-
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
   public items = [];
 
@@ -44,19 +42,10 @@ export class FsMenuComponent implements OnInit, OnDestroy {
   public mobile = false;
   public opened = false;
   public initialized = false;
-  public groupMode = false;
 
   /** Title **/
   @ContentChild(FsMenuTitleDirective, { read: TemplateRef })
   public titleTemplate;
-
-  /** Groups **/
-  @ContentChildren(FsMenuGroupDirective)
-  set groupsElements(value) {
-    this._groupsElements = value.toArray();
-    this.groupMode = this._groupsElements && this._groupsElements.length > 0;
-    this.updateGroups();
-  }
 
   /** Items **/
   @ContentChildren(FsMenuItemDirective, { read: TemplateRef })
@@ -91,9 +80,6 @@ export class FsMenuComponent implements OnInit, OnDestroy {
 
   private _internalMatMenuTrigger;
   private _externalMatMenuTrigger;
-
-  private _groupsTemplates;
-  private _groupsElements;
 
   private _itemsTemplates;
   private _itemsElements;
@@ -275,30 +261,6 @@ export class FsMenuComponent implements OnInit, OnDestroy {
    * Update items for collect templateRefs and elementRefs
    */
   private updateItems() {
-    if (!this._itemsTemplates || !this._itemsElements) { return; }
-
-    this.items = this._itemsTemplates.reduce((acc, item, index) => {
-
-      acc.push({
-        templateRef: this._itemsTemplates[index],
-        elementRef: this._itemsElements[index]
-      });
-
-      return acc;
-    }, []);
-  }
-
-  /**
-   * Update items for collect templateRefs and elementRefs
-   */
-  private updateGroups() {
-    if (!this._groupsElements) { return; }
-
-    this.groups = this._groupsElements.reduce((acc, item) => {
-
-      acc.push(item);
-
-      return acc;
-    }, []);
+    this.items = itemsBuilder(this._itemsTemplates, this._itemsElements);
   }
 }

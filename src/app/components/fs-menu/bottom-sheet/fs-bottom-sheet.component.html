@@ -1,0 +1,8 @@
+<mat-nav-list>
+  <div class="fs-menu-title" *ngIf="data.titleTemplate">
+    <ng-template [ngTemplateOutlet]="data.titleTemplate"></ng-template>
+  </div>
+  <div class="fs-menu-container" [ngClass]="{ 'with-title': !!data.titleTemplate }">
+    <fs-bottom-items-list [items]="data.items"></fs-bottom-items-list>
+  </div>
+</mat-nav-list>

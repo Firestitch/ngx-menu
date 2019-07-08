@@ -1,12 +1,20 @@
-<ng-template ngFor [ngForOf]="items" [ngForTrackBy]="trackBy" let-item>
-  <button type="button"
-          mat-menu-item
-          *ngIf="!item.elementRef.hidden"
-          (click)="item.elementRef.click($event)"
-          [class]="item.elementRef.cssClass"
-          [ngClass]="item.elementRef.ngClass"
-          [id]="item.elementRef.cssId"
-  >
-    <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-  </button>
-</ng-template>
+<ng-container *ngFor="let item of items; trackBy: trackBy">
+  <ng-container *ngIf="item.elementRef.isGroup; else menuItem">
+    <div class="fs-menu-groupped-list">
+      <div class="mat-menu-item fs-menu-group-label" disabled>{{ item.elementRef.label }}</div>
+      <fs-menu-items-list [items]="item.elementRef.childItems"></fs-menu-items-list>
+    </div>
+  </ng-container>
+  <ng-template #menuItem>
+    <button type="button"
+            mat-menu-item
+            *ngIf="!item.elementRef.hidden"
+            (click)="item.elementRef.click($event)"
+            [class]="item.elementRef.cssClass"
+            [ngClass]="item.elementRef.ngClass"
+            [id]="item.elementRef.cssId"
+    >
+      <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+    </button>
+  </ng-template>
+</ng-container>

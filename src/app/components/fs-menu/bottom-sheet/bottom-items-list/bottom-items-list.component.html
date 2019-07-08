@@ -1,0 +1,16 @@
+<ng-container *ngFor="let item of items; trackBy: trackBy">
+  <ng-container *ngIf="item.elementRef.isGroup else menuItem">
+    <div class="group-label">{{item.elementRef.label}}</div>
+    <fs-bottom-items-list [items]="item.elementRef.childItems" class="group"></fs-bottom-items-list>
+  </ng-container>
+  <ng-template #menuItem>
+    <a *ngIf="!item.elementRef.hidden"
+       (click)="click($event, item)"
+       [class]="'mat-menu-item ' + item.elementRef.cssClass"
+       [ngClass]="item.elementRef.ngClass"
+       [id]="item.elementRef.cssId"
+    >
+      <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+    </a>
+  </ng-template>
+</ng-container>
