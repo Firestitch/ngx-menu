@@ -13,7 +13,7 @@ import { itemsBuilder } from '../../helpers/items-builer';
 
 
 @Directive({
-  selector: 'fs-menu-item, [fs-menu-item]'
+  selector: 'fs-menu-group,[fs-menu-item]'
 })
 export class FsMenuItemDirective implements OnChanges, OnDestroy {
   @Input('fsClass') public ngClass = [];

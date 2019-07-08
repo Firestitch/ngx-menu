@@ -4,39 +4,23 @@
   <ng-template fs-menu-item>
     Item 1
   </ng-template>
-  <fs-menu-item label="Group 1">
+  <ng-template fs-menu-item>
+    Item 2
+  </ng-template>
+  <fs-menu-group label="Group 1">
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 1
     </ng-template>
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 2
     </ng-template>
+  </fs-menu-group>
+  <fs-menu-group label="Group 2">
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 3
     </ng-template>
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 4
     </ng-template>
-  </fs-menu-item>
-  <ng-template (click)="clicked()" fs-menu-item>
-    Item 2
-  </ng-template>
-
-  <fs-menu-item label="Group 2">
-    <ng-template (click)="clicked()" fs-menu-item>
-      Sub Item 6
-    </ng-template>
-    <ng-template (click)="clicked()" fs-menu-item>
-      Sub Item 7
-    </ng-template>
-  </fs-menu-item>
-
-  <ng-template (click)="clicked()" fs-menu-item>
-    Item 3
-  </ng-template>
-
-  <ng-template (click)="clicked()" fs-menu-item>
-    Item 4
-  </ng-template>
-
+  </fs-menu-group>
 </fs-menu>
