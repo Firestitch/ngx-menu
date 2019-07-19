@@ -21,7 +21,7 @@
 </ng-template>
 
 
-<mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()" [class]="class">
+<mat-menu #fsMenu="matMenu" (closed)="closedMatMenu()" [class]="klass">
   <div class="mat-menu-item fs-menu-title" *ngIf="titleTemplate" disabled>
     <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
   </div>
