@@ -31,7 +31,7 @@ import { itemsBuilder } from '../../helpers/items-builer';
 })
 export class FsMenuComponent implements OnInit, OnDestroy {
 
-  @Input() public class = null;
+  @Input('class') public klass = null;
 
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
@@ -230,7 +230,7 @@ export class FsMenuComponent implements OnInit, OnDestroy {
    */
   public openSheetMenu() {
     this._activeSheetRef = this._bottomSheet.open(FsBottomSheetComponent, {
-      data: { items: this.items, titleTemplate: this.titleTemplate }
+      data: { items: this.items, titleTemplate: this.titleTemplate, klass: this.klass }
     });
 
     this.opened = true;
