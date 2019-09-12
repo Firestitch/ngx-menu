@@ -1,6 +1,6 @@
 <ng-container *ngFor="let item of items; trackBy: trackBy">
   <ng-container *ngIf="item.elementRef.isGroup; else menuItem">
-    <div class="fs-menu-groupped-list">
+    <div class="fs-menu-groupped-list" *ngIf="!item.elementRef.hidden">
       <div class="mat-menu-item fs-menu-group-label" disabled>{{ item.elementRef.label }}</div>
       <fs-menu-items-list [items]="item.elementRef.childItems"></fs-menu-items-list>
     </div>
