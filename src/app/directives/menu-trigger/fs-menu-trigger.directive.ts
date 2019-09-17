@@ -7,12 +7,12 @@ import {
   Self,
   ElementRef,
   ViewContainerRef,
+  AfterContentInit,
 } from '@angular/core';
 import { MatMenuTrigger, MatMenu, MatMenuItem, MAT_MENU_SCROLL_STRATEGY } from '@angular/material';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterContentInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 
