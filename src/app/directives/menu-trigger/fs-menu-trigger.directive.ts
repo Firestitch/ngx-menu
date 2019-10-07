@@ -9,7 +9,7 @@ import {
   ViewContainerRef,
   AfterContentInit,
 } from '@angular/core';
-import { MatMenuTrigger, MatMenu, MatMenuItem, MAT_MENU_SCROLL_STRATEGY } from '@angular/material';
+import { MatMenuTrigger, MatMenu, MatMenuItem, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';

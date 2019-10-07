@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { MatBottomSheetRef } from '@angular/material';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'fs-bottom-items-list',
