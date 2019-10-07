@@ -1,13 +1,14 @@
 import {
-  TemplateRef,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
-  ContentChildren,
-  ViewChild,
-  OnInit,
-  OnDestroy,
   ContentChild,
+  ContentChildren,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -29,6 +30,7 @@ import { itemsBuilder } from '../../helpers/items-builer';
   selector: 'fs-menu',
   templateUrl: 'fs-menu.component.html',
   styleUrls: [ 'fs-menu.component.scss' ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsMenuComponent implements OnInit, OnDestroy {
 

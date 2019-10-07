@@ -1,19 +1,21 @@
 import {
-  EventEmitter,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Inject,
   Component,
-  OnInit,
+  EventEmitter,
+  Inject,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { concat } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'fs-bottom-sheet',
   templateUrl: './fs-bottom-sheet.component.html',
-  styleUrls: ['./fs-bottom-sheet.component.scss']
+  styleUrls: ['./fs-bottom-sheet.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsBottomSheetComponent implements OnInit, OnDestroy {
 

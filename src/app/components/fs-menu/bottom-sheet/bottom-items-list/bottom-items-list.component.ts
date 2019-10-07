@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
@@ -6,6 +6,7 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
   selector: 'fs-bottom-items-list',
   templateUrl: './bottom-items-list.component.html',
   styleUrls: [ './bottom-items-list.component.scss' ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BottomItemsListComponent {
 
