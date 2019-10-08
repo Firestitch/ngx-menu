@@ -32,6 +32,7 @@ import { itemsBuilder } from '../../helpers/items-builer';
 export class FsMenuComponent implements OnInit, OnDestroy {
 
   @Input('class') public klass = null;
+  @Input('buttonClass') public buttonClass = '';
 
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 

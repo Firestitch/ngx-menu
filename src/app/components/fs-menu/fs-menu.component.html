@@ -1,5 +1,6 @@
 <ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
   <button type="button"
+          [ngClass]="buttonClass"
           mat-icon-button
           *ngIf="useInternalTrigger"
           [matMenuTriggerFor]="fsMenu"
@@ -12,6 +13,7 @@
 
 <ng-template #sheetMenu>
   <button type="button"
+          [ngClass]="buttonClass"
           mat-icon-button
           *ngIf="useInternalTrigger"
           (click)="openMenu()"
