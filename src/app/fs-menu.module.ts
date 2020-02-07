@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
 
 import { FsMenuComponent } from './components/fs-menu/fs-menu.component';
 import { FsBottomSheetComponent } from './components/fs-menu/bottom-sheet/fs-bottom-sheet.component';
@@ -20,11 +21,12 @@ import { FsMenuTitleDirective } from './directives/menu-title/fs-menu-title.dire
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatBottomSheetModule,
-    MatListModule
+    MatListModule,
   ],
   exports: [
     FsMenuComponent,

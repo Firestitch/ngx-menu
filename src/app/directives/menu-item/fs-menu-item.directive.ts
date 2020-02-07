@@ -22,6 +22,9 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
   @Input() public label;
   @Input() public hidden = false;
   @Input() public dismissAfterClick = true;
+  @Input() public type;
+  @Input() public link;
+  @Input() public queryParams = {};
 
   @Output('click') public click$ = new EventEmitter();
 

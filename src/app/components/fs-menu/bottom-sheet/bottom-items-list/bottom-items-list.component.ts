@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { take } from 'rxjs/operators';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
@@ -8,12 +15,21 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
   styleUrls: [ './bottom-items-list.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BottomItemsListComponent {
+export class BottomItemsListComponent implements OnChanges {
 
   @Input()
   public items;
 
-  constructor(private _bottomSheetRef: MatBottomSheetRef<any>) {}
+  constructor(
+    private _bottomSheetRef: MatBottomSheetRef<any>,
+    private _cdRef: ChangeDetectorRef,
+  ) {
+    this._cdRef.detach();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._cdRef.detectChanges();
+  }
 
   /**
    * For improve ngFor perf

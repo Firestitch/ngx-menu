@@ -99,7 +99,9 @@ export class FsMenuComponent implements OnInit, OnDestroy {
     private _bottomSheet: MatBottomSheet,
     private _breakpointObserver: BreakpointObserver,
     private _cd: ChangeDetectorRef,
-  ) {}
+  ) {
+    this._cd.detach();
+  }
 
   set resolutionChanged(val) {
     this._resolutionChanged = val;
@@ -120,13 +122,13 @@ export class FsMenuComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.subscribeToResChanges();
     this.initialized = true;
+
+    this._cd.detectChanges();
   }
 
   public ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
-
-    this._cd.detach();
   }
 
   /**
@@ -152,9 +154,6 @@ export class FsMenuComponent implements OnInit, OnDestroy {
           // Flag that menus was closed not by user
           this.resolutionChanged = true;
 
-          // Detect changes because for strategies like OnPush if won't detected by default
-          this._cd.detectChanges();
-
           if (this.mobile) {
             this.closeMatMenu();
             this.openSheetMenu();
@@ -165,9 +164,15 @@ export class FsMenuComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               if (this.matMenuTrigger) {
                 this.matMenuTrigger.openMenu();
+
+                // Detect changes because for strategies like OnPush if won't detected by default
+                this._cd.detectChanges();
               }
             });
           }
+
+          // Detect changes because for strategies like OnPush if won't detected by default
+          this._cd.detectChanges();
         } else {
           // Detect changes because for strategies like OnPush if won't detected by default
           this._cd.detectChanges();

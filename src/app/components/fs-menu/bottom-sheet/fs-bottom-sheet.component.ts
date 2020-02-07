@@ -25,10 +25,14 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _cd: ChangeDetectorRef
-  ) {}
+  ) {
+    this._cd.detach();
+  }
 
   public ngOnInit() {
     this.subscribeToChanges();
+
+    this._cd.detectChanges();
   }
 
   public ngOnDestroy() {
