@@ -7,7 +7,7 @@ import {
   Self,
   ElementRef,
   ViewContainerRef,
-  AfterContentInit,
+  OnInit,
 } from '@angular/core';
 import { MatMenuTrigger, MatMenu, MatMenuItem, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
 import { Directionality } from '@angular/cdk/bidi';
@@ -20,7 +20,7 @@ import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 @Directive({
   selector: '[fsMenuTriggerFor]'
 })
-export class FsMenuTriggerDirective extends MatMenuTrigger implements AfterContentInit {
+export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
 
   @Input('fsMenuTriggerFor') public fsMenu: FsMenuComponent = null;
 
@@ -58,11 +58,9 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements AfterConte
     );
   }
 
-  public ngAfterContentInit() {
+  public ngOnInit(): void {
     this.menu = this.fsMenu.fsMenuRef;
     this.fsMenu.externalMatMenuTrigger = this;
-
-    super.ngAfterContentInit();
   }
 
 }

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -32,7 +33,7 @@ import { itemsBuilder } from '../../helpers/items-builer';
   styleUrls: [ 'fs-menu.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FsMenuComponent implements OnInit, OnDestroy {
+export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input('class') public klass = null;
   @Input('buttonClass') public buttonClass = '';
@@ -42,7 +43,7 @@ export class FsMenuComponent implements OnInit, OnDestroy {
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
   public items = [];
 
-  public useInternalTrigger = true;
+  public useInternalTrigger = false;
   public mobile = false;
   public opened = false;
   public initialized = false;
@@ -124,6 +125,12 @@ export class FsMenuComponent implements OnInit, OnDestroy {
     this.initialized = true;
 
     this._cd.detectChanges();
+  }
+
+  public ngAfterViewInit(): void {
+    if (!this._externalMatMenuTrigger) {
+      this.useInternalTrigger = true;
+    }
   }
 
   public ngOnDestroy() {
