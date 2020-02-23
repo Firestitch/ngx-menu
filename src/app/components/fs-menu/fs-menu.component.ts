@@ -130,6 +130,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngAfterViewInit(): void {
     if (!this._externalMatMenuTrigger) {
       this.useInternalTrigger = true;
+      this._cd.detectChanges();
     }
   }
 
