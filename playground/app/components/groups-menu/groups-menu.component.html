@@ -11,7 +11,9 @@
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 1
     </ng-template>
-    <ng-template (click)="clicked()" fs-menu-item>
+    <ng-template fs-menu-item
+                 [link]="['/api', 'test']"
+                 [queryParams]="{param: 1}">
       Sub Item 2
     </ng-template>
   </fs-menu-group>

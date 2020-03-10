@@ -6,32 +6,30 @@
     </div>
   </ng-container>
   <ng-template #menuItem>
-    <ng-container [ngSwitch]="item.elementRef.type">
-      <ng-container *ngIf="item.elementRef.link; else btn">
-        <a
-          mat-menu-item
-          *ngIf="!item.elementRef.hidden"
-          [routerLink]="item.elementRef.link"
-          [queryParams]="item.elementRef.queryParams"
-          (click)="item.elementRef.click($event)"
-          [class]="item.elementRef.cssClass"
-          [ngClass]="item.elementRef.ngClass"
-          [id]="item.elementRef.cssId">
-          <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-        </a>
-      </ng-container>
-      <ng-template #btn>
-        <button type="button"
-                mat-menu-item
-                *ngIf="!item.elementRef.hidden"
-                (click)="item.elementRef.click($event)"
-                [class]="item.elementRef.cssClass"
-                [ngClass]="item.elementRef.ngClass"
-                [id]="item.elementRef.cssId"
-        >
-          <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-        </button>
-      </ng-template>
+    <ng-container *ngIf="item.elementRef.link; else btn">
+      <a
+        mat-menu-item
+        *ngIf="!item.elementRef.hidden"
+        [routerLink]="item.elementRef.link"
+        [queryParams]="item.elementRef.queryParams"
+        (click)="item.elementRef.click($event)"
+        [class]="item.elementRef.cssClass"
+        [ngClass]="item.elementRef.ngClass"
+        [id]="item.elementRef.cssId">
+        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+      </a>
     </ng-container>
+    <ng-template #btn>
+      <button type="button"
+              mat-menu-item
+              *ngIf="!item.elementRef.hidden"
+              (click)="item.elementRef.click($event)"
+              [class]="item.elementRef.cssClass"
+              [ngClass]="item.elementRef.ngClass"
+              [id]="item.elementRef.cssId"
+      >
+        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+      </button>
+    </ng-template>
   </ng-template>
 </ng-container>

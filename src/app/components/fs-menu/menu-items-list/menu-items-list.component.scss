@@ -1,7 +1,7 @@
 :host {
   ::ng-deep {
     .fs-menu-groupped-list {
-      button {
+      a, button {
         padding-left: 32px;
       }
     }
