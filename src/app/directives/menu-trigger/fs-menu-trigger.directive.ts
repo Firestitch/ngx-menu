@@ -1,7 +1,6 @@
 import {
   Directive,
   Input,
-  HostListener,
   Optional,
   Inject,
   Self,
@@ -18,23 +17,11 @@ import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 
 
 @Directive({
-  selector: '[fsMenuTriggerFor]'
+  selector: '[fsMenuTriggerFor]',
 })
 export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
 
   @Input('fsMenuTriggerFor') public fsMenu: FsMenuComponent = null;
-
-  // WARNING: mousedown event has conflict with click in Firefox
-  // @HostListener('mousedown', ['$event'])
-  @HostListener('keydown')
-  @HostListener('click')
-  public click() {
-    if (this.fsMenu.opened) {
-      this.fsMenu.closeMenu();
-    } else {
-      this.fsMenu.openMenu();
-    }
-  }
 
   constructor(
     _overlay: Overlay,
@@ -63,4 +50,20 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
     this.fsMenu.externalMatMenuTrigger = this;
   }
 
+  _handleKeydown(event: KeyboardEvent): void {
+    this._triggerClick();
+  }
+
+  /** Handles click events on the trigger. */
+  _handleClick(event: MouseEvent): void {
+    this._triggerClick();
+  }
+
+  private _triggerClick() {
+    if (this.fsMenu.opened) {
+      this.fsMenu.closeMenu();
+    } else {
+      this.fsMenu.openMenu();
+    }
+  }
 }
