@@ -49,7 +49,7 @@ import { FsMenuTitleDirective } from './directives/menu-title/fs-menu-title.dire
   ]
 })
 export class FsMenuModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<FsMenuModule> {
     return {
       ngModule: FsMenuModule
     };

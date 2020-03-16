@@ -12,9 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet/typings/bottom-sheet-ref';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { Subject } from 'rxjs';
@@ -49,7 +48,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public initialized = false;
 
   /** Title **/
-  @ContentChild(FsMenuTitleDirective, { read: TemplateRef, static: false })
+  @ContentChild(FsMenuTitleDirective, { read: TemplateRef })
   public titleTemplate;
 
   /** Items **/
@@ -66,7 +65,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Catch trigger for matMenu
-  @ViewChild(MatMenuTrigger, { static: false })
+  @ViewChild(MatMenuTrigger)
   set internalMatMenuTrigger(val) {
     if (val) {
       this.useInternalTrigger = true;
