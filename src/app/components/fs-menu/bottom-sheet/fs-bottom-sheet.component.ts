@@ -2,14 +2,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { concat } from 'rxjs';
+
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { createItemsObserver } from '../../../helpers/create-items-observer';
+
 
 @Component({
   selector: 'fs-bottom-sheet',
@@ -19,25 +22,21 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class FsBottomSheetComponent implements OnInit, OnDestroy {
 
-  public destroy$ = new EventEmitter();
+  private _destroy$ = new Subject();
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _cd: ChangeDetectorRef
-  ) {
-    this._cd.detach();
-  }
+  ) {}
 
   public ngOnInit() {
     this.subscribeToChanges();
-
-    this._cd.detectChanges();
   }
 
   public ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /**
@@ -53,27 +52,14 @@ export class FsBottomSheetComponent implements OnInit, OnDestroy {
    * For example we must start detect changes if [hidden] param was changed
    */
   private subscribeToChanges() {
-
-    if (this.data.items && this.data.items.length > 0) {
-      const itemsObservables = this.data.items.reduce((acc, item) => {
-
-        if (item.elementRef && item.elementRef.hiddenChange$) {
-          acc.push(item.elementRef.hiddenChange$);
-        }
-
-        return acc;
-      }, []);
-
-      concat(...itemsObservables)
+    if (this.data.items && this.data.items.length) {
+      createItemsObserver(this.data.items)
         .pipe(
-          takeUntil(this.destroy$)
+          takeUntil(this._destroy$)
         )
         .subscribe(() => {
           this._cd.detectChanges();
-        })
-
+        });
     }
   }
-
-
 }

@@ -7,8 +7,9 @@ import {
   OnDestroy,
   Output,
   ContentChildren,
-  TemplateRef,
+  TemplateRef, SimpleChanges,
 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { itemsBuilder } from '../../helpers/items-builer';
 
 
@@ -45,7 +46,7 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
 
   public childItems;
 
-  public hiddenChange$ = new EventEmitter();
+  public hiddenChange$ = new Subject();
 
   private _childElements;
   private _childTemplates;
@@ -57,10 +58,8 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
     return this._isGroup;
   }
 
-  public ngOnChanges(changes) {
-    if (changes.hidden) {
-      this.hiddenChange$.next();
-    }
+  public ngOnChanges(changes: SimpleChanges) {
+    this.hiddenChange$.next();
   }
 
   public ngOnDestroy() {
