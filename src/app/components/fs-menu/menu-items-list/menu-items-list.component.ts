@@ -4,8 +4,15 @@ import {
   Component,
   Input,
   OnChanges,
-  SimpleChanges
+  OnDestroy,
+  SimpleChanges,
 } from '@angular/core';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { createItemsObserver } from '../../../helpers/create-items-observer';
+
 
 @Component({
   selector: 'fs-menu-items-list',
@@ -13,17 +20,26 @@ import {
   styleUrls: [ './menu-items-list.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuItemsListComponent implements OnChanges {
+export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   @Input()
   public items;
 
-  constructor(private _cdRef: ChangeDetectorRef) {
-    this._cdRef.detach();
-  }
+  private _destroy$ = new Subject();
+
+  constructor(private _cdRef: ChangeDetectorRef) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._cdRef.detectChanges();
+    if (changes.items) {
+      this._destroy$.next();
+
+      this.subscribeToChanges();
+    }
+  }
+
+  public ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /**
@@ -32,5 +48,22 @@ export class MenuItemsListComponent implements OnChanges {
    */
   public trackBy(index) {
     return index;
+  }
+
+
+  /**
+   * Subscribe to changes in directive parameters.
+   * For example we must start detect changes if [hidden] param was changed
+   */
+  private subscribeToChanges() {
+    if (this.items && this.items.length) {
+      createItemsObserver(this.items)
+        .pipe(
+          takeUntil(this._destroy$)
+        )
+        .subscribe(() => {
+          this._cdRef.detectChanges();
+        });
+    }
   }
 }
