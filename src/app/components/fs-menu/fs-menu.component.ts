@@ -77,6 +77,8 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   set externalMatMenuTrigger(val) {
     this.useInternalTrigger = false;
     this._externalMatMenuTrigger = val;
+
+    this._cd.detectChanges();
   }
 
   @ViewChild('fsMenu', { static: true })
