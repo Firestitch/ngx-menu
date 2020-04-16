@@ -7,10 +7,11 @@ import {
   OnDestroy,
   Output,
   ContentChildren,
-  TemplateRef, SimpleChanges,
+  TemplateRef,
+  SimpleChanges,
+  Optional,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { itemsBuilder } from '../../helpers/items-builer';
 
 
 @Directive({
@@ -30,29 +31,22 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
 
   @ContentChildren(FsMenuItemDirective)
   public set itemsElements(value) {
-    this._childElements = value.toArray()
+    this.childrenItems = value.toArray()
       .filter((child) => child !== this);
 
-    this.updateItems();
+    this._isGroup = !this.templateRef;
   }
 
-  @ContentChildren(FsMenuItemDirective, { read: TemplateRef })
-  set itemsTemplates(value) {
-    this._childTemplates = value.toArray()
-      .filter((child) => !!child);
-
-    this.updateItems();
-  }
-
-  public childItems;
+  public childrenItems;
 
   public hiddenChange$ = new Subject();
 
-  private _childElements;
-  private _childTemplates;
   private _isGroup = false;
 
-  constructor(public cd: ChangeDetectorRef) {}
+  constructor(
+    public cd: ChangeDetectorRef,
+    @Optional() public templateRef: TemplateRef<any>,
+  ) {}
 
   get isGroup() {
     return this._isGroup;
@@ -68,11 +62,5 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
 
   public click(event) {
     this.click$.next(event);
-  }
-
-  private updateItems() {
-    this.childItems = itemsBuilder(this._childTemplates, this._childElements);
-
-    this._isGroup = Array.isArray(this.childItems);
   }
 }

@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { createItemsObserver } from '../../../helpers/create-items-observer';
+import { FsMenuItemDirective } from '../../../directives/menu-item/fs-menu-item.directive';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { createItemsObserver } from '../../../helpers/create-items-observer';
 export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   @Input()
-  public items;
+  public items: FsMenuItemDirective[];
 
   private _destroy$ = new Subject();
 

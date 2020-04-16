@@ -23,7 +23,6 @@ import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component
 
 import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
 import { FsMenuTitleDirective } from '../../directives/menu-title/fs-menu-title.directive';
-import { itemsBuilder } from '../../helpers/items-builer';
 
 
 @Component({
@@ -40,7 +39,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
-  public items = [];
+  public items: FsMenuItemDirective[] = [];
 
   public useInternalTrigger = false;
   public mobile = false;
@@ -51,17 +50,9 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @ContentChild(FsMenuTitleDirective, { read: TemplateRef })
   public titleTemplate;
 
-  /** Items **/
-  @ContentChildren(FsMenuItemDirective, { read: TemplateRef })
-  set itemsTemplates(value) {
-    this._itemsTemplates = value.toArray();
-    this.updateItems();
-  }
-
   @ContentChildren(FsMenuItemDirective)
   set itemsElements(value) {
-    this._itemsElements = value.toArray();
-    this.updateItems();
+    this.items = value.toArray();
   }
 
   // Catch trigger for matMenu
@@ -86,9 +77,6 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _internalMatMenuTrigger;
   private _externalMatMenuTrigger;
-
-  private _itemsTemplates;
-  private _itemsElements;
 
   private _resolutionChanged = false;
 
@@ -273,12 +261,5 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this._activeSheetRef) {
       this._activeSheetRef.dismiss();
     }
-  }
-
-  /**
-   * Update items for collect templateRefs and elementRefs
-   */
-  private updateItems() {
-    this.items = itemsBuilder(this._itemsTemplates, this._itemsElements);
   }
 }

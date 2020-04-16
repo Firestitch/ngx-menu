@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-item.directive';
 
 @Component({
   selector: 'fs-bottom-items-list',
@@ -18,7 +19,7 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 export class BottomItemsListComponent implements OnChanges {
 
   @Input()
-  public items;
+  public items: FsMenuItemDirective[];
 
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
