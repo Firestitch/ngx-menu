@@ -9,7 +9,7 @@ import {
   ContentChildren,
   TemplateRef,
   SimpleChanges,
-  Optional,
+  Optional, SkipSelf,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -23,6 +23,7 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
   @Input('id') public cssId = '';
   @Input() public label;
   @Input() public hidden = false;
+  @Input() public groupHidden; // used only for groups
   @Input() public dismissAfterClick = true;
   @Input() public link: any[] | string;
   @Input() public queryParams: { [k: string]: any } = {};
@@ -34,30 +35,52 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
     this.childrenItems = value.toArray()
       .filter((child) => child !== this);
 
-    this._isGroup = !this.templateRef;
+    this._isGroup = !!this.childrenItems;
+    this.checkChildrenVisibility();
+
+    this.itemChange$.next();
   }
 
-  public childrenItems;
+  public childrenItems: FsMenuItemDirective[];
 
-  public hiddenChange$ = new Subject();
+  public itemChange$ = new Subject();
 
   private _isGroup = false;
 
   constructor(
     public cd: ChangeDetectorRef,
     @Optional() public templateRef: TemplateRef<any>,
+    @SkipSelf() @Optional() public parent: FsMenuItemDirective,
   ) {}
 
   get isGroup() {
     return this._isGroup;
   }
 
+  get visible() {
+    if (this.groupHidden !== void 0) {
+      return !this.groupHidden;
+    } else {
+      return !this.hidden;
+    }
+  }
+
   public ngOnChanges(changes: SimpleChanges) {
-    this.hiddenChange$.next();
+    if (!this.isGroup && this.parent && changes.hidden && !changes.hidden.firstChange) {
+      this.parent.checkChildrenVisibility();
+    }
+
+    this.itemChange$.next();
+  }
+
+  public checkChildrenVisibility() {
+    if (this.childrenItems) {
+      this.hidden = this.childrenItems.every((item) => item.hidden);
+    }
   }
 
   public ngOnDestroy() {
-    this.hiddenChange$.complete();
+    this.itemChange$.complete();
   }
 
   public click(event) {

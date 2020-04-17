@@ -4,11 +4,16 @@ import {
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges
 } from '@angular/core';
-import { take } from 'rxjs/operators';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+
 import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-item.directive';
+import { createItemsObserver } from '../../../../helpers/create-items-observer';
 
 @Component({
   selector: 'fs-bottom-items-list',
@@ -16,10 +21,15 @@ import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-it
   styleUrls: [ './bottom-items-list.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BottomItemsListComponent implements OnChanges {
+export class BottomItemsListComponent implements OnInit, OnChanges {
 
   @Input()
   public items: FsMenuItemDirective[];
+
+  @Input()
+  public parentVisible: boolean;
+
+  private _destroy$ = new Subject();
 
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -28,8 +38,16 @@ export class BottomItemsListComponent implements OnChanges {
     this._cdRef.detach();
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
+  public ngOnInit() {
     this._cdRef.detectChanges();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.items) {
+      this._destroy$.next();
+
+      this.subscribeToChanges();
+    }
   }
 
   /**
@@ -63,6 +81,22 @@ export class BottomItemsListComponent implements OnChanges {
 
     if (item && item.elementRef && item.elementRef.dismissAfterClick) {
       this._bottomSheetRef.dismiss();
+    }
+  }
+
+  /**
+   * Subscribe to changes in directive parameters.
+   * For example we must start detect changes if [hidden] param was changed
+   */
+  private subscribeToChanges() {
+    if (this.items && this.items.length) {
+      createItemsObserver(this.items)
+        .pipe(
+          takeUntil(this._destroy$)
+        )
+        .subscribe(() => {
+          this._cdRef.detectChanges();
+        });
     }
   }
 

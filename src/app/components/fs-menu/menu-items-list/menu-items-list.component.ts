@@ -26,12 +26,18 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
   @Input()
   public items: FsMenuItemDirective[];
 
+  @Input()
+  public parentVisible: boolean;
+
   private _destroy$ = new Subject();
 
-  constructor(private _cdRef: ChangeDetectorRef) {}
+  constructor(private _cdRef: ChangeDetectorRef) {
+    this._cdRef.detach();
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
+      this._cdRef.detectChanges();
       this._destroy$.next();
 
       this.subscribeToChanges();

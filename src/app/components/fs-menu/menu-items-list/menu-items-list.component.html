@@ -1,15 +1,17 @@
 <ng-container *ngFor="let item of items; trackBy: trackBy">
   <ng-container *ngIf="item.isGroup; else menuItem">
-    <div class="fs-menu-groupped-list" *ngIf="!item.hidden">
+    <div class="fs-menu-groupped-list" [hidden]="!item.visible">
       <div class="mat-menu-item fs-menu-group-label" disabled>{{ item.label }}</div>
-      <fs-menu-items-list [items]="item.childrenItems"></fs-menu-items-list>
+      <fs-menu-items-list [items]="item.childrenItems"
+                          [parentVisible]="item.visible">
+      </fs-menu-items-list>
     </div>
   </ng-container>
   <ng-template #menuItem>
     <ng-container *ngIf="item.link; else btn">
       <a
         mat-menu-item
-        *ngIf="!item.hidden"
+        *ngIf="item.visible || parentVisible"
         [routerLink]="item.link"
         [queryParams]="item.queryParams"
         (click)="item.click($event)"
@@ -22,7 +24,7 @@
     <ng-template #btn>
       <button type="button"
               mat-menu-item
-              *ngIf="!item.hidden"
+              *ngIf="item.visible || parentVisible"
               (click)="item.click($event)"
               [class]="item.cssClass"
               [ngClass]="item.ngClass"

@@ -1,12 +1,14 @@
 <ng-container *ngFor="let item of items; trackBy: trackBy">
   <ng-container *ngIf="item.isGroup else menuItem">
-    <ng-container *ngIf="!item.hidden">
-      <div class="mat-menu-item" disabled>{{item.label}}</div>
-      <fs-bottom-items-list [items]="item.childrenItems" class="group"></fs-bottom-items-list>
-    </ng-container>
+    <div class="mat-menu-item test" [hidden]="!item.visible" disabled>{{item.label}}</div>
+    <fs-bottom-items-list [items]="item.childrenItems"
+                          [hidden]="!item.visible"
+                          [parentVisible]="item.visible"
+                          class="group">
+    </fs-bottom-items-list>
   </ng-container>
   <ng-template #menuItem>
-    <a *ngIf="!item.hidden"
+    <a *ngIf="item.visible || parentVisible"
        (click)="click($event, item)"
        [class]="'mat-menu-item ' + item.cssClass"
        [ngClass]="item.ngClass"

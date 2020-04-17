@@ -3,15 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-import { createItemsObserver } from '../../../helpers/create-items-observer';
+import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 
 @Component({
@@ -20,46 +14,16 @@ import { createItemsObserver } from '../../../helpers/create-items-observer';
   styleUrls: ['./fs-bottom-sheet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FsBottomSheetComponent implements OnInit, OnDestroy {
-
-  private _destroy$ = new Subject();
+export class FsBottomSheetComponent implements OnInit {
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private _bottomSheetRef: MatBottomSheetRef<any>,
     private _cd: ChangeDetectorRef
-  ) {}
-
-  public ngOnInit() {
-    this.subscribeToChanges();
+  ) {
+    this._cd.detach();
   }
 
-  public ngOnDestroy() {
-    this._destroy$.next();
-    this._destroy$.complete();
-  }
-
-  /**
-   * For improve ngFor perf
-   * @param index
-   */
-  public trackBy(index) {
-    return index;
-  }
-
-  /**
-   * Subscribe to changes in directive parameters.
-   * For example we must start detect changes if [hidden] param was changed
-   */
-  private subscribeToChanges() {
-    if (this.data.items && this.data.items.length) {
-      createItemsObserver(this.data.items)
-        .pipe(
-          takeUntil(this._destroy$)
-        )
-        .subscribe(() => {
-          this._cd.detectChanges();
-        });
-    }
+  public ngOnInit(): void {
+    this._cd.detectChanges();
   }
 }
