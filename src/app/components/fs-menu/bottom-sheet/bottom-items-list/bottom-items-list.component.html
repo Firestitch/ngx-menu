@@ -8,13 +8,16 @@
     </fs-bottom-items-list>
   </ng-container>
   <ng-template #menuItem>
-    <a *ngIf="item.visible || parentVisible"
-       (click)="click($event, item)"
-       [class]="'mat-menu-item ' + item.cssClass"
-       [ngClass]="item.ngClass"
-       [id]="item.cssId"
-    >
-      <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-    </a>
+    <ng-container *ngIf="item.visible || parentVisible">
+      <a (click)="click($event, item)"
+         [routerLink]="item.link"
+         [queryParams]="item.queryParams"
+         [class]="'mat-menu-item ' + item.cssClass"
+         [ngClass]="item.ngClass"
+         [id]="item.cssId"
+      >
+        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+      </a>
+    </ng-container>
   </ng-template>
 </ng-container>

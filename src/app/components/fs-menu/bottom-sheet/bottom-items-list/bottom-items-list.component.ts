@@ -72,14 +72,14 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
       )
       .subscribe(() => {
 
-        if (item && item.elementRef && item.elementRef.click) {
-          item.elementRef.click(event)
+        if (item?.click) {
+          item.click(event)
         }
 
         subscription.unsubscribe();
       });
 
-    if (item && item.elementRef && item.elementRef.dismissAfterClick) {
+    if (item?.dismissAfterClick) {
       this._bottomSheetRef.dismiss();
     }
   }
