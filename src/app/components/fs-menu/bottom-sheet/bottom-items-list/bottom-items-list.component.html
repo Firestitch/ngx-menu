@@ -9,15 +9,26 @@
   </ng-container>
   <ng-template #menuItem>
     <ng-container *ngIf="item.visible || parentVisible">
-      <a (click)="click($event, item)"
-         [routerLink]="item.link"
-         [queryParams]="item.queryParams"
-         [class]="'mat-menu-item ' + item.cssClass"
-         [ngClass]="item.ngClass"
-         [id]="item.cssId"
-      >
-        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-      </a>
+      <ng-container *ngIf="item.link; else btnLikeAction">
+        <a (click)="click($event, item)"
+           [routerLink]="item.link"
+           [queryParams]="item.queryParams"
+           [class]="'mat-menu-item ' + item.cssClass"
+           [ngClass]="item.ngClass"
+           [id]="item.cssId"
+        >
+          <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+        </a>
+      </ng-container>
+      <ng-template #btnLikeAction>
+        <a (click)="click($event, item)"
+           [class]="'mat-menu-item ' + item.cssClass"
+           [ngClass]="item.ngClass"
+           [id]="item.cssId"
+        >
+          <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+        </a>
+      </ng-template>
     </ng-container>
   </ng-template>
 </ng-container>
