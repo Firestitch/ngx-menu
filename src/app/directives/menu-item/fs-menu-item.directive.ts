@@ -9,9 +9,14 @@ import {
   ContentChildren,
   TemplateRef,
   SimpleChanges,
-  Optional, SkipSelf,
+  Optional,
+  SkipSelf,
+  ContentChild,
 } from '@angular/core';
+
 import { Subject } from 'rxjs';
+
+import { FsGroupMenuItemTemplateDirective } from '../group-menu-item-template/fs-group-menu-item-template.directive';
 
 
 @Directive({
@@ -45,6 +50,9 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
 
   public itemChange$ = new Subject();
 
+  @ContentChild(FsGroupMenuItemTemplateDirective, { read: TemplateRef })
+  private _groupItemTemplateRef;
+
   private _isGroup = false;
 
   constructor(
@@ -63,6 +71,10 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
     } else {
       return !this.hidden;
     }
+  }
+
+  get groupItemTemplateRef(): TemplateRef<FsGroupMenuItemTemplateDirective> {
+    return this._groupItemTemplateRef;
   }
 
   public ngOnChanges(changes: SimpleChanges) {

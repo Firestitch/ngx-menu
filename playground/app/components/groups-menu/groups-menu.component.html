@@ -7,7 +7,10 @@
   <ng-template fs-menu-item>
     Item 2
   </ng-template>
-  <fs-menu-group label="Group 1">
+  <fs-menu-group>
+    <ng-template fs-group-menu-item-template>
+      Group 1
+    </ng-template>
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 1
     </ng-template>

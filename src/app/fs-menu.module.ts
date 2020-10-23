@@ -16,6 +16,7 @@ import { BottomItemsListComponent } from
 import { FsMenuItemDirective } from './directives/menu-item/fs-menu-item.directive';
 import { FsMenuTriggerDirective } from './directives/menu-trigger/fs-menu-trigger.directive';
 import { FsMenuTitleDirective } from './directives/menu-title/fs-menu-title.directive';
+import { FsGroupMenuItemTemplateDirective } from './directives/group-menu-item-template/fs-group-menu-item-template.directive';
 
 
 @NgModule({
@@ -33,9 +34,7 @@ import { FsMenuTitleDirective } from './directives/menu-title/fs-menu-title.dire
     FsMenuItemDirective,
     FsMenuTriggerDirective,
     FsMenuTitleDirective,
-  ],
-  entryComponents: [
-    FsBottomSheetComponent,
+    FsGroupMenuItemTemplateDirective,
   ],
   declarations: [
     FsMenuComponent,
@@ -46,6 +45,7 @@ import { FsMenuTitleDirective } from './directives/menu-title/fs-menu-title.dire
     FsMenuItemDirective,
     FsMenuTriggerDirective,
     FsMenuTitleDirective,
+    FsGroupMenuItemTemplateDirective,
   ]
 })
 export class FsMenuModule {
