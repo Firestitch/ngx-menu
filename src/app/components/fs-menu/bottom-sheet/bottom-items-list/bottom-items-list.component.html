@@ -15,7 +15,7 @@
     </fs-bottom-items-list>
   </ng-container>
   <ng-template #menuItem>
-    <ng-container *ngIf="item.visible || parentVisible">
+    <ng-container *ngIf="item.visible">
       <ng-container *ngIf="item.link; else btnLikeAction">
         <a (click)="click($event, item)"
            [routerLink]="item.link"

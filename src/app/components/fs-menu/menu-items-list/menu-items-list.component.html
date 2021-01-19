@@ -18,7 +18,7 @@
     <ng-container *ngIf="item.link; else btn">
       <a
         mat-menu-item
-        *ngIf="item.visible || parentVisible"
+        *ngIf="item.visible"
         [routerLink]="item.link"
         [queryParams]="item.queryParams"
         (click)="item.click($event)"
@@ -31,7 +31,7 @@
     <ng-template #btn>
       <button type="button"
               mat-menu-item
-              *ngIf="item.visible || parentVisible"
+              *ngIf="item.visible"
               (click)="item.click($event)"
               [class]="item.cssClass"
               [ngClass]="item.ngClass"
