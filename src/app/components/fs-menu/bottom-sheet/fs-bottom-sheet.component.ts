@@ -19,9 +19,7 @@ export class FsBottomSheetComponent implements OnInit {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _cd: ChangeDetectorRef
-  ) {
-    this._cd.detach();
-  }
+  ) {}
 
   public ngOnInit(): void {
     this._cd.detectChanges();

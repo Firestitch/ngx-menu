@@ -31,9 +31,7 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   private _destroy$ = new Subject();
 
-  constructor(private _cdRef: ChangeDetectorRef) {
-    this._cdRef.detach();
-  }
+  constructor(private _cdRef: ChangeDetectorRef) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
