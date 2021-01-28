@@ -21,6 +21,7 @@
         *ngIf="item.visible"
         [routerLink]="item.link"
         [queryParams]="item.queryParams"
+        [target]="item.target"
         (click)="item.click($event)"
         [class]="item.cssClass"
         [ngClass]="item.ngClass"

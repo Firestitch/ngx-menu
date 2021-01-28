@@ -31,6 +31,7 @@ export class FsMenuItemDirective implements OnChanges, OnDestroy {
   @Input() public groupHidden; // used only for groups
   @Input() public dismissAfterClick = true;
   @Input() public link: any[] | string;
+  @Input() public target: string = null;
   @Input() public queryParams: { [k: string]: any } = {};
 
   @Output('click') public click$ = new EventEmitter();

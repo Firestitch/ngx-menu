@@ -20,6 +20,7 @@
         <a (click)="click($event, item)"
            [routerLink]="item.link"
            [queryParams]="item.queryParams"
+           [target]="item.target"
            [class]="'mat-menu-item ' + item.cssClass"
            [ngClass]="item.ngClass"
            [id]="item.cssId"
