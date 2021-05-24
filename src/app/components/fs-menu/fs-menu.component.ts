@@ -5,9 +5,11 @@ import {
   Component,
   ContentChild,
   ContentChildren,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -36,6 +38,12 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('class') public klass = null;
   @Input('buttonClass') public buttonClass = '';
 
+  @Output()
+  public opened = new EventEmitter<void>();
+
+  @Output()
+  public closed = new EventEmitter<void>();
+
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
@@ -43,7 +51,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public useInternalTrigger = false;
   public mobile = false;
-  public opened = false;
+  public menuOpened = false;
   public initialized = false;
 
   /** Title **/
@@ -146,7 +154,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         // Set mobile/desktop flag
         this.mobile = result.breakpoints[FsMenuComponent.MOBILE_BREAKPOINT];
 
-        if (this.opened) {
+        if (this.menuOpened) {
 
           // Flag that menus was closed not by user
           this.resolutionChanged = true;
@@ -187,6 +195,8 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       this.openMatMenu();
     }
 
+    this.opened.emit();
+
     this._cd.detectChanges();
   }
 
@@ -199,13 +209,15 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.closeMatMenu();
     }
+
+    this.closed.emit();
   }
 
   /**
    * Open Mat Menu
    */
   public openMatMenu() {
-    this.opened = true;
+    this.menuOpened = true;
     this.resolutionChanged = false;
 
     this.matMenuTrigger.openMenu();
@@ -225,7 +237,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public closedMatMenu() {
     if (!this.resolutionChanged) {
-      this.opened = false;
+      this.menuOpened = false;
     }
 
     this.resolutionChanged = false;
@@ -239,7 +251,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       data: { items: this.items, titleTemplate: this.titleTemplate, klass: this.klass }
     });
 
-    this.opened = true;
+    this.menuOpened = true;
 
     this._activeSheetRef.afterDismissed()
       .pipe(
@@ -247,7 +259,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe(() => {
         if (!this.resolutionChanged) {
-          this.opened = false;
+          this.menuOpened = false;
         }
 
         this.resolutionChanged = false;

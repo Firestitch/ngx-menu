@@ -60,7 +60,7 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
   }
 
   private _triggerClick() {
-    if (this.fsMenu.opened) {
+    if (this.fsMenu.menuOpened) {
       this.fsMenu.closeMenu();
     } else {
       this.fsMenu.openMenu();
