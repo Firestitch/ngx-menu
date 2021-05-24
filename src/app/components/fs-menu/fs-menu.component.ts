@@ -209,8 +209,6 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.closeMatMenu();
     }
-
-    this.closed.emit();
   }
 
   /**
@@ -241,6 +239,8 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.resolutionChanged = false;
+
+    this.closed.emit();
   }
 
   /**
