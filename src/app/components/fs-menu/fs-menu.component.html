@@ -4,7 +4,6 @@
           mat-icon-button
           *ngIf="useInternalTrigger"
           [matMenuTriggerFor]="fsMenu"
-          (menuClosed)="closedMatMenu()"
           #menuTrigger="matMenuTrigger"
           (click)="openMenu()"
   >
@@ -23,7 +22,7 @@
 </ng-template>
 
 
-<mat-menu #fsMenu="matMenu" [class]="klass">
+<mat-menu #fsMenu="matMenu" [class]="klass" (close)="closedMatMenu()">
   <div class="mat-menu-item fs-menu-title" *ngIf="titleTemplate" disabled>
     <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
   </div>
