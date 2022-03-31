@@ -6,7 +6,7 @@ import { baseEnvironment } from './base-environment';
 
 export const environment = Object.assign({
   production: false
-}, baseEnvironment);
+},baseEnvironment);
 
 /*
  * For easier debugging in development mode, you can import the following file
