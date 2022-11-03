@@ -4,6 +4,14 @@
       a, button {
         padding-left: 32px;
       }
+    }  
+        
+    .mat-menu-item {
+      .file-label {
+        width: 100%;
+        margin: 0 -16px;
+        padding: 0 16px;    
+      }
     }
   }
 }

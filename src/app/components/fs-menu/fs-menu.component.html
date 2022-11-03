@@ -5,28 +5,24 @@
           *ngIf="useInternalTrigger"
           [matMenuTriggerFor]="fsMenu"
           #menuTrigger="matMenuTrigger"
-          (click)="openMenu()"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-</ng-template>
-
-<ng-template #sheetMenu>
-  <button type="button"
-          mat-icon-button
-          [ngClass]="buttonClass"
-          *ngIf="useInternalTrigger"
           (click)="openMenu()">
     <mat-icon>more_vert</mat-icon>
   </button>
 </ng-template>
 
+<ng-template #sheetMenu>
+  <button 
+      type="button"
+      mat-icon-button
+      [ngClass]="buttonClass"
+      *ngIf="useInternalTrigger"
+      (click)="openMenu()">
+    <mat-icon>more_vert</mat-icon>
+  </button>     
+</ng-template>
 
 <mat-menu #fsMenu="matMenu" [class]="klass" (close)="closedMatMenu()">
-  <div class="mat-menu-item fs-menu-title" *ngIf="titleTemplate" disabled>
-    <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
-  </div>
-  <div class="fs-menu-container" [ngClass]="{ 'with-title': !!titleTemplate }">
+  <div class="fs-menu-container">
     <fs-menu-items-list [items]="items"></fs-menu-items-list>
   </div>
 </mat-menu>

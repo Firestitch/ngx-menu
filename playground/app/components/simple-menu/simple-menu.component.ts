@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FsFile } from '@firestitch/file';
 import { DialogComponent } from '../dialog';
 
 
@@ -18,5 +19,9 @@ export class SimpleMenuComponent {
   public openDialog(e) {
     this._dialog.open(DialogComponent, {
     });
+  }
+
+  public fileSelect(fsFiles: FsFile[]) {
+    debugger;
   }
 }

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FsExampleModule } from '@firestitch/example';
 import { FsMessageModule } from '@firestitch/message';
+import { FsFileModule } from '@firestitch/file';
 import { FsMenuModule } from 'package';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -36,6 +37,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
+    FsFileModule.forRoot(),
     RouterModule.forRoot(routes),
   ],
   entryComponents: [
@@ -48,8 +50,6 @@ const routes: Routes = [
     RemoteMenuComponent,
     GroupsMenuComponent,
     DialogComponent,
-  ],
-  providers: [
   ],
 })
 export class PlaygroundModule {

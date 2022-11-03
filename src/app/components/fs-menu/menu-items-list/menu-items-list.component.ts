@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { createItemsObserver } from '../../../helpers/create-items-observer';
-import { FsMenuItemDirective } from '../../../directives/menu-item/fs-menu-item.directive';
+import { MenuItemDirective } from '../../../directives/menu-item';
 
 
 @Component({
@@ -24,7 +24,7 @@ import { FsMenuItemDirective } from '../../../directives/menu-item/fs-menu-item.
 export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   @Input()
-  public items: FsMenuItemDirective[];
+  public items: MenuItemDirective[];
 
   @Input()
   public parentVisible: boolean;
@@ -54,7 +54,6 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
   public trackBy(index) {
     return index;
   }
-
 
   /**
    * Subscribe to changes in directive parameters.

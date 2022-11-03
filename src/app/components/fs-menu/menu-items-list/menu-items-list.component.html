@@ -5,12 +5,14 @@
         <ng-container *ngIf="!!item.label; else tpl">
           {{ item.label }}
         </ng-container>
-        <ng-template #tpl
-                     [ngTemplateOutlet]="item.groupItemTemplateRef">
+        <ng-template 
+          #tpl
+          [ngTemplateOutlet]="item.groupItemTemplateRef">
         </ng-template>
       </div>
-      <fs-menu-items-list [items]="item.childrenItems"
-                          [parentVisible]="item.visible">
+      <fs-menu-items-list 
+        [items]="item.childrenItems"
+        [parentVisible]="item.visible">
       </fs-menu-items-list>
     </div>
   </ng-container>
@@ -30,15 +32,24 @@
       </a>
     </ng-container>
     <ng-template #btn>
-      <button type="button"
-              mat-menu-item
-              *ngIf="item.visible"
-              (click)="item.click($event)"
-              [class]="item.cssClass"
-              [ngClass]="item.ngClass"
-              [id]="item.cssId"
-      >
-        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+      <button 
+          type="button"
+          mat-menu-item
+          *ngIf="item.visible"
+          (click)="item.click($event)"
+          [class]="item.cssClass"
+          [ngClass]="item.ngClass"
+          [id]="item.cssId">
+        <ng-container *ngIf="!item.select; else file">
+          <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+        </ng-container>
+        <ng-template #file>
+          <fs-file 
+              (select)="item.select.emit($event)"
+              [multiple]="item.multiple">
+            <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+          </fs-file>
+        </ng-template>
       </button>
     </ng-template>
   </ng-template>

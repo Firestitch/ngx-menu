@@ -64,6 +64,10 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
    * @param item
    */
   public click(event, item) {
+    if(item.select) {
+      return;
+    }
+
     event.preventDefault();
 
     const subscription = this._bottomSheetRef.afterDismissed()

@@ -1,3 +1,13 @@
 fs-bottom-items-list a.mat-menu-item {
   padding: 0 32px;
 }
+
+.mat-menu-item {
+  ::ng-deep {
+    .file-label {
+      width: 100%;
+      margin: 0 -16px;
+      padding: 0 16px;    
+    }
+  }
+}

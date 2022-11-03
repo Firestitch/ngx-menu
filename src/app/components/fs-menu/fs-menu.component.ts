@@ -23,8 +23,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 
 import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
 
-import { FsMenuItemDirective } from '../../directives/menu-item/fs-menu-item.directive';
-import { FsMenuTitleDirective } from '../../directives/menu-title/fs-menu-title.directive';
+import { MenuItemDirective } from '../../directives/menu-item';
 
 
 @Component({
@@ -47,18 +46,14 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
-  public items: FsMenuItemDirective[] = [];
+  public items: MenuItemDirective[] = [];
 
   public useInternalTrigger = false;
   public mobile = false;
   public menuOpened = false;
   public initialized = false;
 
-  /** Title **/
-  @ContentChild(FsMenuTitleDirective, { read: TemplateRef })
-  public titleTemplate;
-
-  @ContentChildren(FsMenuItemDirective)
+  @ContentChildren(MenuItemDirective)
   set itemsElements(value) {
     this.items = value.toArray();
   }
@@ -248,7 +243,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public openSheetMenu() {
     this._activeSheetRef = this._bottomSheet.open(FsBottomSheetComponent, {
-      data: { items: this.items, titleTemplate: this.titleTemplate, klass: this.klass }
+      data: { items: this.items, klass: this.klass }
     });
 
     this.menuOpened = true;
