@@ -198,7 +198,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Close fs menu depends from mode
    */
-  public closeMenu() {
+  public closeMenu(): void {
     if (this.mobile) {
       this.closeSheetMenu();
     } else {

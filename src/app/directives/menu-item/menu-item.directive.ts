@@ -60,11 +60,11 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
     @SkipSelf() @Optional() public parent: MenuItemDirective,
   ) {}
 
-  get isGroup() {
+  public get isGroup() {
     return this._isGroup;
   }
 
-  get visible() {
+  public get visible() {
     if (this.groupHidden !== void 0) {
       return !this.groupHidden;
     } else {
@@ -72,7 +72,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
     }
   }
 
-  get groupItemTemplateRef(): TemplateRef<FsGroupMenuItemTemplateDirective> {
+  public get groupItemTemplateRef(): TemplateRef<FsGroupMenuItemTemplateDirective> {
     return this._groupItemTemplateRef;
   }
 

@@ -41,7 +41,13 @@
           <ng-template #file>
             <fs-file 
                 (select)="item.select.emit($event)"
-                [multiple]="item.multiple">
+                [multiple]="item.multiple"
+                [accept]="item.accept"
+                [minWidth]="item.minWidth"
+                [minHeight]="item.minHeight"
+                [imageWidth]="item.imageWidth"
+                [imageHeight]="item.imageHeight"
+                (error)="item.error($event)">
               <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
             </fs-file>
           </ng-template>

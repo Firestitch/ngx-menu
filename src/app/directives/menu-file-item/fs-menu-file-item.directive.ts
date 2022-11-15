@@ -19,8 +19,14 @@ import { MenuItemDirective } from '../menu-item/menu-item.directive';
 export class FsMenuFileItemDirective extends MenuItemDirective {
 
   @Input() public multiple = false;
+  @Input() public accept;
+  @Input() public minWidth;
+  @Input() public minHeight;
+  @Input() public imageWidth;
+  @Input() public imageHeight;
 
   @Output() public select = new EventEmitter<FsFile>();
+  @Output() public error = new EventEmitter<any>();
 
 }
 

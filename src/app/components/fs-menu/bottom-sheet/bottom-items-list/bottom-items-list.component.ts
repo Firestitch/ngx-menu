@@ -63,8 +63,9 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
    * @param event
    * @param item
    */
-  public click(event, item) {
+  public click(event: MouseEvent, item) {   
     if(item.select) {
+      event.stopPropagation();
       return;
     }
 
@@ -75,7 +76,6 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
         take(1),
       )
       .subscribe(() => {
-
         if (item?.click) {
           item.click(event)
         }
