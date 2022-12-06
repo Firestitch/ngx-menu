@@ -52,6 +52,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public mobile = false;
   public menuOpened = false;
   public initialized = false;
+  public openInitialized = false;
 
   @ContentChildren(MenuItemDirective)
   set itemsElements(value) {
@@ -184,6 +185,8 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    * Open fs menu depends from mode
    */
   public openMenu() {
+    this.openInitialized = true;
+    
     if (this.mobile) {
       this.openSheetMenu();
     } else {

@@ -42,7 +42,7 @@
             <fs-file 
                 (select)="item.select.emit($event)"
                 [multiple]="item.multiple"
-                [accept]="item.accept"
+                [accept]="item.accept || ''"
                 [minWidth]="item.minWidth"
                 [minHeight]="item.minHeight"
                 [imageWidth]="item.imageWidth"

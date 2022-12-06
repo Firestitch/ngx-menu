@@ -1,11 +1,12 @@
 <ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
-  <button type="button"
-          [ngClass]="buttonClass"
-          mat-icon-button
-          *ngIf="useInternalTrigger"
-          [matMenuTriggerFor]="fsMenu"
-          #menuTrigger="matMenuTrigger"
-          (click)="openMenu()">
+  <button 
+      type="button"
+      [ngClass]="buttonClass"
+      mat-icon-button
+      *ngIf="useInternalTrigger"
+      [matMenuTriggerFor]="fsMenu"
+      #menuTrigger="matMenuTrigger"
+      (click)="openMenu()">
     <mat-icon>more_vert</mat-icon>
   </button>
 </ng-template>
@@ -21,8 +22,14 @@
   </button>     
 </ng-template>
 
-<mat-menu #fsMenu="matMenu" [class]="klass" (close)="closedMatMenu()">
+<mat-menu 
+    #fsMenu="matMenu" 
+    [class]="klass" 
+    (close)="closedMatMenu()">
   <div class="fs-menu-container">
-    <fs-menu-items-list [items]="items"></fs-menu-items-list>
+    <fs-menu-items-list 
+      *ngIf="openInitialized"
+      [items]="items">
+    </fs-menu-items-list>
   </div>
 </mat-menu>
