@@ -3,14 +3,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChild,
   ContentChildren,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
-  TemplateRef,
   ViewChild,
 } from '@angular/core';
 
@@ -52,7 +50,6 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public mobile = false;
   public menuOpened = false;
   public initialized = false;
-  public openInitialized = false;
 
   @ContentChildren(MenuItemDirective)
   set itemsElements(value) {
@@ -61,7 +58,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Catch trigger for matMenu
   @ViewChild(MatMenuTrigger)
-  set internalMatMenuTrigger(val) {
+  public set internalMatMenuTrigger(val) {
     if (val) {
       this.useInternalTrigger = true;
     }
@@ -69,11 +66,10 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this._internalMatMenuTrigger = val;
   };
 
-  set externalMatMenuTrigger(val) {
+  public set externalMatMenuTrigger(val) {
     this.useInternalTrigger = false;
     this._externalMatMenuTrigger = val;
-
-    this._cd.detectChanges();
+    this._cdRef.detectChanges();
   }
 
   @ViewChild('fsMenu', { static: true })
@@ -92,20 +88,20 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private _bottomSheet: MatBottomSheet,
     private _breakpointObserver: BreakpointObserver,
-    private _cd: ChangeDetectorRef,
+    private _cdRef: ChangeDetectorRef,
   ) {
-    this._cd.detach();
+    //this._cdRef.detach();
   }
 
-  set resolutionChanged(val) {
+  public set resolutionChanged(val) {
     this._resolutionChanged = val;
   }
 
-  get resolutionChanged() {
+  public get resolutionChanged() {
     return this._resolutionChanged;
   }
 
-  get matMenuTrigger() {
+  public get matMenuTrigger() {
     if (this.useInternalTrigger) {
       return this._internalMatMenuTrigger;
     } else {
@@ -116,14 +112,13 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngOnInit() {
     this.subscribeToResChanges();
     this.initialized = true;
-
-    this._cd.detectChanges();
+    this._cdRef.detectChanges();
   }
 
   public ngAfterViewInit(): void {
     if (!this._externalMatMenuTrigger) {
       this.useInternalTrigger = true;
-      this._cd.detectChanges();
+      this._cdRef.detectChanges();
     }
   }
 
@@ -167,16 +162,16 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.matMenuTrigger.openMenu();
 
                 // Detect changes because for strategies like OnPush if won't detected by default
-                this._cd.detectChanges();
+                this._cdRef.detectChanges();
               }
             });
           }
 
           // Detect changes because for strategies like OnPush if won't detected by default
-          this._cd.detectChanges();
+          this._cdRef.detectChanges();
         } else {
           // Detect changes because for strategies like OnPush if won't detected by default
-          this._cd.detectChanges();
+          this._cdRef.detectChanges();
         }
       });
   }
@@ -184,9 +179,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Open fs menu depends from mode
    */
-  public openMenu() {
-    this.openInitialized = true;
-    
+  public openMenu() {    
     if (this.mobile) {
       this.openSheetMenu();
     } else {
@@ -195,7 +188,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.opened.emit();
 
-    this._cd.detectChanges();
+    this._cdRef.detectChanges();
   }
 
   /**

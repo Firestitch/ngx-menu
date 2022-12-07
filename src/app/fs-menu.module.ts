@@ -18,6 +18,7 @@ import { FsMenuItemDirective } from './directives/menu-item/fs-menu-item.directi
 import { FsMenuTriggerDirective } from './directives/menu-trigger/fs-menu-trigger.directive';
 import { FsGroupMenuItemTemplateDirective } from './directives/group-menu-item-template/fs-group-menu-item-template.directive';
 import { FsMenuFileItemDirective } from './directives/menu-file-item';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { FsMenuFileItemDirective } from './directives/menu-file-item';
     MatMenuModule,
     MatBottomSheetModule,
     MatListModule,
+    MatTooltipModule,
 
     FsFileModule,
   ],

@@ -18,39 +18,49 @@
   </ng-container>
   <ng-template #menuItem>
     <ng-container *ngIf="item.link; else btn">
-      <a
-        mat-menu-item
-        *ngIf="item.visible"
-        [routerLink]="item.link"
-        [queryParams]="item.queryParams"
-        [target]="item.target"
-        (click)="item.click($event)"
-        [class]="item.cssClass"
-        [ngClass]="item.ngClass"
-        [id]="item.cssId">
-        <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-      </a>
-    </ng-container>
-    <ng-template #btn>
-      <button 
-          type="button"
+      <div    
+          [matTooltip]="item.tooltip"
+          [matTooltipDisabled]="!item.tooltip">
+        <a
           mat-menu-item
           *ngIf="item.visible"
+          [routerLink]="item.link"
+          [queryParams]="item.queryParams"
+          [target]="item.target"
           (click)="item.click($event)"
           [class]="item.cssClass"
+          [disabled]="item.disabled"
           [ngClass]="item.ngClass"
           [id]="item.cssId">
-        <ng-container *ngIf="!item.select; else file">
           <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-        </ng-container>
-        <ng-template #file>
-          <fs-file 
-              (select)="item.select.emit($event)"
-              [multiple]="item.multiple">
+        </a>
+      </div>
+    </ng-container>
+    <ng-template #btn>
+      <div           
+          [matTooltip]="item.tooltip"
+          [matTooltipDisabled]="!item.tooltip">
+        <button 
+            type="button"
+            mat-menu-item
+            *ngIf="item.visible"
+            (click)="item.click($event)"
+            [class]="item.cssClass"
+            [ngClass]="item.ngClass"
+            [disabled]="item.disabled"
+            [id]="item.cssId">
+          <ng-container *ngIf="!item.select; else file">
             <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-          </fs-file>
-        </ng-template>
-      </button>
+          </ng-container>
+          <ng-template #file>
+            <fs-file 
+                (select)="item.select.emit($event)"
+                [multiple]="item.multiple">
+              <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+            </fs-file>
+          </ng-template>
+        </button>
+      </div>
     </ng-template>
   </ng-template>
 </ng-container>

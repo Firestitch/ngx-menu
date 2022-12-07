@@ -21,15 +21,21 @@ import { FsGroupMenuItemTemplateDirective } from '../group-menu-item-template/fs
 
 @Directive()
 export class MenuItemDirective implements OnChanges, OnDestroy {
+
   @Input('fsClass') public ngClass = [];
   @Input('class') public cssClass = '';
   @Input('id') public cssId = '';
+  @Input('tooltip') public set setTooltip(tooltip: () => string | string) { 
+    this._tooltip = tooltip;
+  }
+
   @Input() public label;
   @Input() public hidden = false;
   @Input() public groupHidden; // used only for groups
   @Input() public dismissAfterClick = true;
   @Input() public link: any[] | string;
   @Input() public target: string = null;
+  @Input() public disabled = false;  
   @Input() public queryParams: { [k: string]: any } = {};
 
   @Output('click') public click$ = new EventEmitter();
@@ -53,6 +59,8 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   private _groupItemTemplateRef;
 
   private _isGroup = false;
+  private _tooltip: () => string | string;
+  private _tooltipValue: string;
 
   constructor(
     public cd: ChangeDetectorRef,
@@ -69,6 +77,18 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
       return !this.groupHidden;
     } else {
       return !this.hidden;
+    }
+  }
+
+  public get tooltip(): string {
+    return this._tooltipValue;
+  }
+
+  public generateTooltip(): void {
+    if(typeof this._tooltip === 'function') {
+      this._tooltipValue = this._tooltip();
+    } else if(typeof this._tooltip === 'string') {
+      this._tooltipValue = this._tooltip;
     }
   }
 

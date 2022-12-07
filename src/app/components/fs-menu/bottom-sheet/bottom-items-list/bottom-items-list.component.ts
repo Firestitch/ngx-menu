@@ -35,7 +35,7 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _cdRef: ChangeDetectorRef,
   ) {
-    this._cdRef.detach();
+    //this._cdRef.detach();
   }
 
   public ngOnInit() {
@@ -44,8 +44,10 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
-      this._destroy$.next();
+      this.items
+        .forEach((item) => item.generateTooltip());
 
+      this._destroy$.next();
       this.subscribeToChanges();
     }
   }

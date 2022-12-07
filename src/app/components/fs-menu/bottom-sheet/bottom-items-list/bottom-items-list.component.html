@@ -19,13 +19,15 @@
   <ng-template #menuItem>
     <ng-container *ngIf="item.visible">
       <ng-container *ngIf="item.link; else btnLikeAction">
-        <a (click)="click($event, item)"
-           [routerLink]="item.link"
-           [queryParams]="item.queryParams"
-           [target]="item.target"
-           [class]="'mat-menu-item ' + item.cssClass"
-           [ngClass]="item.ngClass"
-           [id]="item.cssId">
+        <a 
+            (click)="click($event, item)"
+            [routerLink]="item.link"
+            [queryParams]="item.queryParams"
+            [target]="item.target"
+            [class]="'mat-menu-item ' + item.cssClass"
+            [ngClass]="item.ngClass"
+            [attr.disabled]="item.disabled ? 'disabled' : null"
+            [id]="item.cssId">
           <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
         </a>
       </ng-container>
@@ -34,6 +36,7 @@
             (click)="click($event, item)"
             [class]="'mat-menu-item ' + item.cssClass"
             [ngClass]="item.ngClass"
+            [attr.disabled]="item.disabled ? 'disabled' : null"
             [id]="item.cssId">
           <ng-container *ngIf="!item.select; else file">
             <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>

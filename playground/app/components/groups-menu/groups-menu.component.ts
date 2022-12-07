@@ -12,4 +12,8 @@ export class GroupsMenuComponent {
   public clicked() {
     console.log('Item has been clicked');
   }
+
+  public disabledToolip = (): string => {
+    return 'The item is disabled';
+  }
 }

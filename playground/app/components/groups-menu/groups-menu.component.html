@@ -4,8 +4,18 @@
   <ng-template fs-menu-item>
     Item 1
   </ng-template>
-  <ng-template fs-menu-item>
+  <ng-template 
+      fs-menu-item
+      [tooltip]="'Item 2 Tooltip'"
+      (click)="clicked()">
     Item 2
+  </ng-template>
+  <ng-template 
+      (click)="clicked()" 
+      [disabled]="true" 
+      [tooltip]="disabledToolip"
+      fs-menu-item>
+    Disabled Item
   </ng-template>
   <fs-menu-group>
     <ng-template fs-group-menu-item-template>
@@ -14,9 +24,10 @@
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 1
     </ng-template>
-    <ng-template fs-menu-item
-                 [link]="['/api', 'test']"
-                 [queryParams]="{param: 1}">
+    <ng-template 
+        fs-menu-item
+        [link]="['/api', 'test']"
+        [queryParams]="{param: 1}">
       Sub Item 2
     </ng-template>
   </fs-menu-group>
@@ -32,9 +43,9 @@
   <fs-menu-group label="Group 3" [groupHidden]="true">
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 5
-    </ng-template>
     <ng-template (click)="clicked()" fs-menu-item>
       Sub Item 6
+    </ng-template>
     </ng-template>
   </fs-menu-group>
 </fs-menu>
