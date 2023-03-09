@@ -61,10 +61,6 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
     return index;
   }
 
-  /**
-   * type checking of directive
-   * @param dir 
-   */
   public isFileItemDirective = isFileItemDirective;
 
 

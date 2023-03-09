@@ -59,10 +59,6 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
     return index;
   }
 
-  /**
-   * type checking of directive
-   * @param dir 
-   */
   public isFileItemDirective = isFileItemDirective;
 
   /**
