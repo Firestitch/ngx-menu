@@ -6,14 +6,14 @@
   </ng-template>
   <ng-template 
       fs-menu-item
-      [tooltip]="'Item 2 Tooltip'"
+      tooltip="Item 2 Tooltip"
       (click)="clicked()">
     Item 2
   </ng-template>
   <ng-template 
       (click)="clicked()" 
       [disabled]="true" 
-      [tooltip]="disabledToolip"
+      [tooltip]="disabledTooltip"
       fs-menu-item>
     Disabled Item
   </ng-template>

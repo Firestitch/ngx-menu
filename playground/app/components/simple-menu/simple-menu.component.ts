@@ -21,7 +21,7 @@ export class SimpleMenuComponent {
     });
   }
 
-  public fileSelect(fsFiles: FsFile[]) {
+  public fileSelect(fsFiles: FsFile) {
     debugger;
   }
 }

@@ -12,8 +12,9 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-item.directive';
+import { FsMenuItemDirective } from '../../../../directives';
 import { createItemsObserver } from '../../../../helpers/create-items-observer';
+import { isFileItemDirective } from '../../../../helpers/is-file-item-directive';
 
 @Component({
   selector: 'fs-bottom-items-list',
@@ -61,13 +62,21 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
   }
 
   /**
+   * type checking of directive
+   * @param dir 
+   */
+  public isFileItemDirective = isFileItemDirective;
+
+
+  /**
    * Click on element
    * @param event
    * @param item
    */
   public click(event: MouseEvent, item) {   
-    if(item.select) {
+    if (item.select) {
       event.stopPropagation();
+
       return;
     }
 
