@@ -9,11 +9,11 @@ export class GroupsMenuComponent {
 
   constructor() {}
 
-  public clicked() {
+  public clicked(): void {
     console.log('Item has been clicked');
   }
 
-  public disabledToolip = (): string => {
+  public disabledTooltip = (): string => {
     return 'The item is disabled';
   }
 }

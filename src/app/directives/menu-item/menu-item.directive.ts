@@ -19,13 +19,15 @@ import { Subject } from 'rxjs';
 import { FsGroupMenuItemTemplateDirective } from '../group-menu-item-template/fs-group-menu-item-template.directive';
 
 
+type stringFn = () => string;
+
 @Directive()
 export class MenuItemDirective implements OnChanges, OnDestroy {
 
   @Input('fsClass') public ngClass = [];
   @Input('class') public cssClass = '';
   @Input('id') public cssId = '';
-  @Input('tooltip') public set setTooltip(tooltip: () => string | string) { 
+  @Input('tooltip') public set setTooltip(tooltip: stringFn | string) { 
     this._tooltip = tooltip;
   }
 
@@ -59,7 +61,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   private _groupItemTemplateRef;
 
   private _isGroup = false;
-  private _tooltip: () => string | string;
+  private _tooltip: stringFn | string;
   private _tooltipValue: string;
 
   constructor(

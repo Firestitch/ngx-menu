@@ -49,10 +49,18 @@
             [ngClass]="item.ngClass"
             [disabled]="item.disabled"
             [id]="item.cssId">
-          <ng-container *ngIf="!item.select; else file">
+          <ng-container *ngIf="!isFileItemDirective(item) else file">
             <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
           </ng-container>
+
           <ng-template #file>
+            <ng-container *ngTemplateOutlet="
+              fileTmp;
+              context: { $implicit: item }
+            "></ng-container>
+          </ng-template>
+
+          <ng-template #fileTmp let-item>
             <fs-file 
                 (select)="item.select.emit($event)"
                 [multiple]="item.multiple">
