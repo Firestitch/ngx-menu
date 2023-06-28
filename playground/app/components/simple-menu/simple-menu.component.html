@@ -1,4 +1,6 @@
-<fs-menu class="simple-menu" buttonClass="button-class">
+<fs-menu 
+    class="simple-menu" 
+    buttonClass="button-class">
   <ng-template 
       fs-menu-item
       (click)="clicked('Item 1')"
@@ -20,5 +22,21 @@
       [multiple]="true"
       (select)="fileSelect($event)">
     Upload
+  </ng-template>
+</fs-menu>
+
+<fs-menu 
+    [buttonType]="'miniFab'"
+    [buttonColor]="'primary'">
+  <ng-template 
+      fs-menu-item
+      (click)="clicked('Item 1')"
+      class="test-123"
+      [link]="['/api', 'test']"
+      [queryParams]="{ param: 1 }"
+      target="_blank"
+      [tooltip]="'Tooltip'"
+      [fsClass]="['test-555']">
+    Item
   </ng-template>
 </fs-menu>

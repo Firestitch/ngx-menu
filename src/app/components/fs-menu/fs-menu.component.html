@@ -1,25 +1,53 @@
 <ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
-  <button 
-      type="button"
-      [ngClass]="buttonClass"
-      mat-icon-button
-      *ngIf="useInternalTrigger"
-      [matMenuTriggerFor]="fsMenu"
-      #menuTrigger="matMenuTrigger"
-      (click)="openMenu()">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+  <ng-container *ngIf="buttonType === 'icon'">
+    <button 
+        type="button"
+        [ngClass]="buttonClass"
+        mat-icon-button
+        *ngIf="useInternalTrigger"
+        [matMenuTriggerFor]="fsMenu"
+        #menuTrigger="matMenuTrigger"
+        (click)="openMenu()">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="buttonType === 'miniFab'">
+    <button 
+        type="button"
+        [ngClass]="buttonClass"
+        mat-mini-fab
+        [color]="buttonColor"
+        *ngIf="useInternalTrigger"
+        [matMenuTriggerFor]="fsMenu"
+        #menuTrigger="matMenuTrigger"
+        (click)="openMenu()">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </ng-container>
 </ng-template>
 
 <ng-template #sheetMenu>
-  <button 
-      type="button"
-      mat-icon-button
-      [ngClass]="buttonClass"
-      *ngIf="useInternalTrigger"
-      (click)="openMenu()">
-    <mat-icon>more_vert</mat-icon>
-  </button>     
+  <ng-container *ngIf="buttonType === 'icon'">
+    <button 
+        type="button"
+        mat-icon-button
+        [ngClass]="buttonClass"
+        *ngIf="useInternalTrigger"
+        (click)="openMenu()">
+      <mat-icon>more_vert</mat-icon>
+    </button>   
+  </ng-container>  
+  <ng-container *ngIf="buttonType === 'miniFab'">
+    <button 
+        type="button"
+        mat-mini-fab
+        [color]="buttonColor"
+        [ngClass]="buttonClass"
+        *ngIf="useInternalTrigger"
+        (click)="openMenu()">
+      <mat-icon>more_vert</mat-icon>
+    </button>   
+  </ng-container>
 </ng-template>
 
 <mat-menu 

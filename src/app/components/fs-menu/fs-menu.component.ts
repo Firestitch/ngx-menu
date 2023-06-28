@@ -33,7 +33,9 @@ import { MenuItemDirective } from '../../directives/menu-item';
 export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input('class') public klass = null;
-  @Input('buttonClass') public buttonClass = '';
+  @Input() public buttonClass = '';
+  @Input() public buttonType: 'icon' | 'miniFab' = 'icon';
+  @Input() public buttonColor = 'primary';
 
   @Output()
   public opened = new EventEmitter<void>();
