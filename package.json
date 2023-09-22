@@ -54,6 +54,7 @@
     "@firestitch/dialog": "^12.2.1",
     "@firestitch/drawer": "^8.1.0",
     "@firestitch/example": "^12.1.1",
+    "@firestitch/iframe": "^12.0.7",
     "@firestitch/file": "^12.7.2",
     "@firestitch/label": "^12.0.0",
     "@firestitch/menu": "^8.1.3",
