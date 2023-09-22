@@ -1,5 +1,6 @@
 import { baseEnvironment } from './base-environment';
 
-export const environment = Object.assign({
+export const environment = {
+  ...baseEnvironment,
   production: true
-},baseEnvironment);
+};
