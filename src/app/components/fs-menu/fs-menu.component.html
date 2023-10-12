@@ -1,6 +1,6 @@
 <ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
   <ng-container *ngIf="buttonType === 'icon'">
-    <button 
+    <button
         type="button"
         [ngClass]="buttonClass"
         mat-icon-button
@@ -12,7 +12,7 @@
     </button>
   </ng-container>
   <ng-container *ngIf="buttonType === 'miniFab'">
-    <button 
+    <button
         type="button"
         [ngClass]="buttonClass"
         mat-mini-fab
@@ -28,17 +28,17 @@
 
 <ng-template #sheetMenu>
   <ng-container *ngIf="buttonType === 'icon'">
-    <button 
+    <button
         type="button"
         mat-icon-button
         [ngClass]="buttonClass"
         *ngIf="useInternalTrigger"
         (click)="openMenu()">
       <mat-icon>more_vert</mat-icon>
-    </button>   
-  </ng-container>  
+    </button>
+  </ng-container>
   <ng-container *ngIf="buttonType === 'miniFab'">
-    <button 
+    <button
         type="button"
         mat-mini-fab
         [color]="buttonColor"
@@ -46,18 +46,19 @@
         *ngIf="useInternalTrigger"
         (click)="openMenu()">
       <mat-icon>more_vert</mat-icon>
-    </button>   
+    </button>
   </ng-container>
 </ng-template>
 
-<mat-menu 
-    #fsMenu="matMenu" 
-    [class]="klass" 
+<mat-menu
+    #fsMenu="matMenu"
+    [class]="klass"
     (close)="closedMatMenu()">
   <div class="fs-menu-container">
-    <fs-menu-items-list 
+    <fs-menu-items-list
       *ngIf="menuOpened"
-      [items]="items">
+      [items]="items"
+      (clicked)="closeMenu()">
     </fs-menu-items-list>
   </div>
 </mat-menu>

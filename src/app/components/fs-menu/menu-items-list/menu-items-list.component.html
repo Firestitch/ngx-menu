@@ -5,12 +5,12 @@
         <ng-container *ngIf="!!item.label; else tpl">
           {{ item.label }}
         </ng-container>
-        <ng-template 
+        <ng-template
           #tpl
           [ngTemplateOutlet]="item.groupItemTemplateRef">
         </ng-template>
       </div>
-      <fs-menu-items-list 
+      <fs-menu-items-list
         [items]="item.childrenItems"
         [parentVisible]="item.visible">
       </fs-menu-items-list>
@@ -18,7 +18,7 @@
   </ng-container>
   <ng-template #menuItem>
     <ng-container *ngIf="item.link; else btn">
-      <div    
+      <div
           [matTooltip]="item.tooltip"
           [matTooltipDisabled]="!item.tooltip">
         <a
@@ -37,10 +37,10 @@
       </div>
     </ng-container>
     <ng-template #btn>
-      <div           
+      <div
           [matTooltip]="item.tooltip"
           [matTooltipDisabled]="!item.tooltip">
-        <button 
+        <button
             type="button"
             mat-menu-item
             *ngIf="item.visible"
@@ -61,9 +61,11 @@
           </ng-template>
 
           <ng-template #fileTmp let-item>
-            <fs-file 
-                (select)="item.select.emit($event)"
-                [multiple]="item.multiple">
+            <fs-file
+              (click)="$event.stopPropagation()"
+              (select)="fileSelected(item, $event)"
+              (cancel)="clicked.emit()"
+              [multiple]="item.multiple">
               <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
             </fs-file>
           </ng-template>

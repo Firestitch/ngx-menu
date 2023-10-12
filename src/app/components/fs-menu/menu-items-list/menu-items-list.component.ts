@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 
@@ -29,6 +31,9 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   @Input()
   public parentVisible: boolean;
+
+  @Output()
+  public clicked = new EventEmitter<void>();
 
   private _destroy$ = new Subject();
 
@@ -60,6 +65,12 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
   }
 
   public isFileItemDirective = isFileItemDirective;
+
+  public fileSelected(item, event): void {
+    item.select.emit(event);
+
+    this.clicked.emit();
+  }
 
   /**
    * Subscribe to changes in directive parameters.
