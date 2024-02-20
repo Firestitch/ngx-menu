@@ -26,29 +26,26 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  bootstrap: [AppComponent],
-  imports: [
-    BrowserModule,
-    FsMenuModule,
-    FsMessageModule.forRoot(),
-    FsExampleModule.forRoot(),
-    BrowserAnimationsModule,
-    AppMaterialModule,
-    FormsModule,
-    FsFileModule.forRoot(),
-    RouterModule.forRoot(routes),
-  ],
-  entryComponents: [
-    DialogComponent
-  ],
-  declarations: [
-    AppComponent,
-    ExamplesComponent,
-    SimpleMenuComponent,
-    RemoteMenuComponent,
-    GroupsMenuComponent,
-    DialogComponent,
-  ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        FsMenuModule,
+        FsMessageModule.forRoot(),
+        FsExampleModule.forRoot(),
+        BrowserAnimationsModule,
+        AppMaterialModule,
+        FormsModule,
+        FsFileModule.forRoot(),
+        RouterModule.forRoot(routes),
+    ],
+    declarations: [
+        AppComponent,
+        ExamplesComponent,
+        SimpleMenuComponent,
+        RemoteMenuComponent,
+        GroupsMenuComponent,
+        DialogComponent,
+    ]
 })
 export class PlaygroundModule {
 }
