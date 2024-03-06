@@ -55,10 +55,11 @@
     [class]="klass"
     (close)="closedMatMenu()">
   <div class="fs-menu-container">
-    <fs-menu-items-list
-      *ngIf="menuOpened"
-      [items]="items"
-      (clicked)="closeMenu()">
-    </fs-menu-items-list>
+    <ng-container *ngIf="menuOpened">
+      <fs-menu-items-list      
+        [items]="items"
+        (clicked)="closeMenu()">
+      </fs-menu-items-list>
+    </ng-container>
   </div>
 </mat-menu>

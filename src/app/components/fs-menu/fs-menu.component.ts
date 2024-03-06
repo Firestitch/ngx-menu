@@ -148,7 +148,6 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mobile = result.breakpoints[FsMenuComponent.MOBILE_BREAKPOINT];
 
         if (this.menuOpened) {
-
           // Flag that menus was closed not by user
           this.resolutionChanged = true;
 
@@ -182,6 +181,9 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    * Open fs menu depends from mode
    */
   public openMenu() {    
+    this._updateHidden(this.items);
+    this._cdRef.detectChanges();
+
     if (this.mobile) {
       this.openSheetMenu();
     } else {
@@ -227,11 +229,15 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    * After menu close event
    */
   public closedMatMenu() {
-    if (!this.resolutionChanged) {
-      this.menuOpened = false;
-    }
-
-    this.resolutionChanged = false;
+    // Give time for the fade out effect to finish before hiding items
+    setTimeout(() => {
+      if (!this.resolutionChanged) {
+        this.menuOpened = false;
+      }
+  
+      this.resolutionChanged = false;
+      this._cdRef.detectChanges();
+    }, 100); 
 
     this.closed.emit();
   }
@@ -266,5 +272,16 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this._activeSheetRef) {
       this._activeSheetRef.dismiss();
     }
+  }
+  
+  private _updateHidden(items: MenuItemDirective[]) {
+    items
+      .forEach((item) => {
+          this._updateHidden(item.childrenItems || []);
+          
+          if(item.show) {
+            item.hidden = item.show();
+          }
+      });
   }
 }

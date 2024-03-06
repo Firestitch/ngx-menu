@@ -10,6 +10,8 @@ import { DialogComponent } from '../dialog';
 })
 export class SimpleMenuComponent {
 
+  public toggle = false;
+
   constructor(private _dialog: MatDialog) {}
 
   public clicked(item) {
@@ -23,5 +25,17 @@ export class SimpleMenuComponent {
 
   public fileSelect(fsFiles: FsFile) {
     debugger;
+  }
+
+  public toggleToggle() {
+    this.toggle = !this.toggle;
+  }
+
+  public isShowToggle = () => {
+    return this.toggle;
+  }
+
+  public isHideToggle = () => {
+    return !this.toggle;
   }
 }

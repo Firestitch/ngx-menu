@@ -33,6 +33,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
 
   @Input() public label;
   @Input() public hidden = false;
+  @Input() public show: () => boolean;
   @Input() public groupHidden; // used only for groups
   @Input() public dismissAfterClick = true;
   @Input() public link: any[] | string;

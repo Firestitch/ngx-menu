@@ -18,6 +18,18 @@
     Open Dialog
   </ng-template>
   <ng-template 
+      fs-menu-item 
+      [show]="isShowToggle"
+      (click)="toggleToggle()">
+    Turn on
+  </ng-template>
+  <ng-template 
+      fs-menu-item 
+      [show]="isHideToggle"
+      (click)="toggleToggle()">
+    Turn off
+  </ng-template>
+  <ng-template 
       fs-menu-file-item
       [multiple]="true"
       (select)="fileSelect($event)">
