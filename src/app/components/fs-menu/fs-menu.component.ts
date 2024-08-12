@@ -26,8 +26,8 @@ import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component
 
 @Component({
   selector: 'fs-menu',
-  templateUrl: 'fs-menu.component.html',
-  styleUrls: ['fs-menu.component.scss'],
+  templateUrl: './fs-menu.component.html',
+  styleUrls: ['./fs-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -54,7 +54,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public initialized = false;
 
   @ContentChildren(MenuItemDirective)
-  set itemsElements(value) {
+  public set itemsElements(value) {
     this.items = value.toArray();
   }
 

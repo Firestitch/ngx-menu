@@ -34,7 +34,6 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   @Input() public label;
   @Input() public hidden = false;
   @Input() public show: () => boolean;
-  @Input() public groupHidden; // used only for groups
   @Input() public dismissAfterClick = true;
   @Input() public link: any[] | string;
   @Input() public target: string = null;
@@ -76,12 +75,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   }
 
   public get visible() {
-    if (this.groupHidden !== void 0) {
-      return !this.groupHidden;
-    }
- 
     return !this.hidden;
-    
   }
 
   public get tooltip(): string {
@@ -109,8 +103,9 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   }
 
   public checkChildrenVisibility() {
-    if (this.childrenItems) {
-      this.hidden = this.childrenItems.every((item) => item.hidden);
+    if (this.childrenItems && !this.hidden) {
+      this.hidden = this.childrenItems
+        .every((item) => item.hidden);
     }
   }
 
