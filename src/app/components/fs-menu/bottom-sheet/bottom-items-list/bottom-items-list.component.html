@@ -1,6 +1,6 @@
 <ng-container *ngFor="let item of items; trackBy: trackBy">
   <ng-container *ngIf="item.isGroup else menuItem">
-    <div class="mat-menu-item" [hidden]="!item.visible" disabled>
+    <div class="mat-menu-item fs-menu-group-label" [hidden]="!item.visible" disabled>
       <ng-container *ngIf="!!item.label; else tpl">
         {{ item.label }}
       </ng-container>

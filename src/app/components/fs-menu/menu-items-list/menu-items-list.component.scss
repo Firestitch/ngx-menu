@@ -5,6 +5,12 @@
         padding-left: 32px;
       }
     }  
+
+    .fs-menu-group-label {
+      font-size: 85%;
+      height: 30px;
+      line-height: 30px;
+    }
         
     .mat-menu-item {
       .file-label {
@@ -13,5 +19,6 @@
         padding: 0 16px;    
       }
     }
+    
   }
 }

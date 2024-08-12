@@ -11,3 +11,12 @@ fs-bottom-items-list a.mat-menu-item {
     }
   }
 }
+
+
+:host ::ng-deep {
+  .fs-menu-group-label {
+    font-size: 85%;
+    height: 30px;
+    line-height: 30px;
+  }
+}
