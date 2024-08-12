@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 
 @Component({
   selector: 'groups',
-  templateUrl: 'groups-menu.component.html',
+  templateUrl: './groups-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupsMenuComponent {
-
-  constructor() {}
 
   public clicked(): void {
     console.log('Item has been clicked');
@@ -15,5 +14,5 @@ export class GroupsMenuComponent {
 
   public disabledTooltip = (): string => {
     return 'The item is disabled';
-  }
+  };
 }

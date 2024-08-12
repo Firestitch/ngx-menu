@@ -1,21 +1,8 @@
 import {
-  EventEmitter,
-  ChangeDetectorRef,
   Directive,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  ContentChildren,
-  TemplateRef,
-  SimpleChanges,
-  Optional,
-  SkipSelf,
-  ContentChild,
   forwardRef,
 } from '@angular/core';
 
-import { Subject } from 'rxjs';
 
 import { MenuItemDirective } from './menu-item.directive';
 
@@ -25,9 +12,9 @@ import { MenuItemDirective } from './menu-item.directive';
   providers: [
     {
       provide:MenuItemDirective,
-      useExisting: forwardRef(() => FsMenuItemDirective)
+      useExisting: forwardRef(() => FsMenuItemDirective),
     },
-  ]
+  ],
 })
 export class FsMenuItemDirective extends MenuItemDirective {
 

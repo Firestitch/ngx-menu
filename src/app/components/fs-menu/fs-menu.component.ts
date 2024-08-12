@@ -12,22 +12,22 @@ import {
   ViewChild,
 } from '@angular/core';
 
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
-import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
-
 import { MenuItemDirective } from '../../directives/menu-item';
+
+import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
 
 
 @Component({
   selector: 'fs-menu',
   templateUrl: 'fs-menu.component.html',
-  styleUrls: [ 'fs-menu.component.scss' ],
+  styleUrls: ['fs-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -66,7 +66,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this._internalMatMenuTrigger = val;
-  };
+  }
 
   public set externalMatMenuTrigger(val) {
     this.useInternalTrigger = false;
@@ -106,9 +106,10 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public get matMenuTrigger() {
     if (this.useInternalTrigger) {
       return this._internalMatMenuTrigger;
-    } else {
-      return this._externalMatMenuTrigger;
     }
+ 
+    return this._externalMatMenuTrigger;
+    
   }
 
   public ngOnInit() {
@@ -143,7 +144,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         debounceTime(500),
         takeUntil(this._destroy$),
       )
-      .subscribe(result => {
+      .subscribe((result) => {
         // Set mobile/desktop flag
         this.mobile = result.breakpoints[FsMenuComponent.MOBILE_BREAKPOINT];
 
@@ -247,7 +248,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public openSheetMenu() {
     this._activeSheetRef = this._bottomSheet.open(FsBottomSheetComponent, {
-      data: { items: this.items, klass: this.klass }
+      data: { items: this.items, klass: this.klass },
     });
 
     this.menuOpened = true;
@@ -262,7 +263,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         this.resolutionChanged = false;
-      })
+      });
   }
 
   /**
@@ -275,13 +276,12 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   
   private _updateHidden(items: MenuItemDirective[]) {
-    items
-      .forEach((item) => {
-          this._updateHidden(item.childrenItems || []);
+    items.forEach((item) => {
+      this._updateHidden(item.childrenItems || []);
           
-          if(item.show) {
-            item.hidden = item.show();
-          }
-      });
+      if(item.show) {
+        item.hidden = !item.show();
+      }
+    });
   }
 }

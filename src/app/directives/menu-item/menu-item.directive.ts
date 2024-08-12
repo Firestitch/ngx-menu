@@ -1,17 +1,17 @@
 import {
-  EventEmitter,
   ChangeDetectorRef,
+  ContentChild,
+  ContentChildren,
   Directive,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
-  Output,
-  ContentChildren,
-  TemplateRef,
-  SimpleChanges,
   Optional,
+  Output,
+  SimpleChanges,
   SkipSelf,
-  ContentChild,
+  TemplateRef,
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -78,9 +78,10 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   public get visible() {
     if (this.groupHidden !== void 0) {
       return !this.groupHidden;
-    } else {
-      return !this.hidden;
     }
+ 
+    return !this.hidden;
+    
   }
 
   public get tooltip(): string {
