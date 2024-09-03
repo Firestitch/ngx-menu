@@ -7,7 +7,7 @@
         *ngIf="useInternalTrigger"
         [matMenuTriggerFor]="fsMenu"
         #menuTrigger="matMenuTrigger"
-        (click)="openMenu()">
+        (click)="openMenu($event)">
       <mat-icon>more_vert</mat-icon>
     </button>
   </ng-container>
@@ -20,7 +20,7 @@
         *ngIf="useInternalTrigger"
         [matMenuTriggerFor]="fsMenu"
         #menuTrigger="matMenuTrigger"
-        (click)="openMenu()">
+        (click)="openMenu($event)">
       <mat-icon>more_vert</mat-icon>
     </button>
   </ng-container>
@@ -33,7 +33,7 @@
         mat-icon-button
         [ngClass]="buttonClass"
         *ngIf="useInternalTrigger"
-        (click)="openMenu()">
+        (click)="openMenu($event)">
       <mat-icon>more_vert</mat-icon>
     </button>
   </ng-container>
@@ -44,7 +44,7 @@
         [color]="buttonColor"
         [ngClass]="buttonClass"
         *ngIf="useInternalTrigger"
-        (click)="openMenu()">
+        (click)="openMenu($event)">
       <mat-icon>more_vert</mat-icon>
     </button>
   </ng-container>

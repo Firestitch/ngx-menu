@@ -38,7 +38,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() public buttonColor = 'primary';
 
   @Output()
-  public opened = new EventEmitter<void>();
+  public opened = new EventEmitter<PointerEvent>();
 
   @Output()
   public closed = new EventEmitter<void>();
@@ -181,7 +181,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Open fs menu depends from mode
    */
-  public openMenu() {    
+  public openMenu($event?) {    
     this._updateHidden(this.items);
     this._cdRef.detectChanges();
 
@@ -191,7 +191,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       this.openMatMenu();
     }
 
-    this.opened.emit();
+    this.opened.emit($event);
 
     this._cdRef.detectChanges();
   }
