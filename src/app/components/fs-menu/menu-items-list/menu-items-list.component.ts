@@ -13,27 +13,31 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import {
+  FsMenuDividerItemDirective, FsMenuFileItemDirective, FsMenuItemDirective,
+} from '../../../directives';
 import { createItemsObserver } from '../../../helpers/create-items-observer';
-import { FsMenuFileItemDirective, FsMenuItemDirective } from '../../../directives';
 import { isFileItemDirective } from '../../../helpers/is-file-item-directive';
 
 
 @Component({
   selector: 'fs-menu-items-list',
   templateUrl: './menu-items-list.component.html',
-  styleUrls: [ './menu-items-list.component.scss' ],
+  styleUrls: ['./menu-items-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   @Input()
-  public items: Array<FsMenuItemDirective | FsMenuFileItemDirective>;
+  public items: (FsMenuItemDirective | FsMenuFileItemDirective | FsMenuDividerItemDirective)[];
 
   @Input()
   public parentVisible: boolean;
 
   @Output()
   public clicked = new EventEmitter<void>();
+
+  public isFileItemDirective = isFileItemDirective;
 
   private _destroy$ = new Subject();
 
@@ -47,7 +51,7 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
       this._cdRef.detectChanges();
       this._destroy$.next();
 
-      this.subscribeToChanges();
+      this._subscribeToChanges();
     }
   }
 
@@ -64,7 +68,6 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
     return index;
   }
 
-  public isFileItemDirective = isFileItemDirective;
 
   public fileSelected(item, event): void {
     item.select.emit(event);
@@ -76,11 +79,11 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
    * Subscribe to changes in directive parameters.
    * For example we must start detect changes if [hidden] param was changed
    */
-  private subscribeToChanges() {
+  private _subscribeToChanges() {
     if (this.items && this.items.length) {
       createItemsObserver(this.items)
         .pipe(
-          takeUntil(this._destroy$)
+          takeUntil(this._destroy$),
         )
         .subscribe(() => {
           this._cdRef.detectChanges();

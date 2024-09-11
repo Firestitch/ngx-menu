@@ -1,4 +1,5 @@
-import { FsMenuFileItemDirective, FsMenuItemDirective } from "../directives";
+import { FsMenuFileItemDirective } from '../directives/menu-file-item/fs-menu-file-item.directive';
+import { FsMenuItemDirective } from '../directives/menu-item/fs-menu-item.directive';
 
 /**
  * type checking of directive
@@ -6,4 +7,4 @@ import { FsMenuFileItemDirective, FsMenuItemDirective } from "../directives";
  */
 export const isFileItemDirective = (dir: FsMenuItemDirective | FsMenuFileItemDirective): dir is FsMenuFileItemDirective => {
   return dir instanceof FsMenuFileItemDirective;
-}
+};

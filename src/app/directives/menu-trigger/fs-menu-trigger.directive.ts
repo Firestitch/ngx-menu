@@ -1,17 +1,18 @@
 import {
   Directive,
-  Input,
-  Optional,
-  Inject,
-  Self,
   ElementRef,
-  ViewContainerRef,
+  Inject,
+  Input,
   OnInit,
+  Optional,
+  Self,
+  ViewContainerRef,
 } from '@angular/core';
-import { MatMenuTrigger, MatMenu, MatMenuItem, MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
+
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay } from '@angular/cdk/overlay';
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { MAT_MENU_SCROLL_STRATEGY, MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 
@@ -31,7 +32,7 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
     @Optional() _parentMenu: MatMenu,
     @Optional() @Self() _menuItemInstance: MatMenuItem,
     @Optional() _dir: Directionality,
-    _focusMonitor?: FocusMonitor
+    _focusMonitor?: FocusMonitor,
   ) {
     super(
       _overlay,
@@ -41,7 +42,7 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
       _parentMenu,
       _menuItemInstance,
       _dir,
-      _focusMonitor
+      _focusMonitor,
     );
   }
 
@@ -50,12 +51,12 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
     this.fsMenu.externalMatMenuTrigger = this;
   }
 
-  _handleKeydown(event: KeyboardEvent): void {
+  public _handleKeydown(event: KeyboardEvent): void {
     this._triggerClick();
   }
 
   /** Handles click events on the trigger. */
-  _handleClick(event: MouseEvent): void {
+  public _handleClick(event: MouseEvent): void {
     this._triggerClick();
   }
 

@@ -19,7 +19,7 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
-import { MenuItemDirective } from '../../directives/menu-item';
+import { MenuItemDirective } from '../../directives/menu-item/menu-item.directive';
 
 import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
 

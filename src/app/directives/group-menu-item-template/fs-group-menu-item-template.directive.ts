@@ -1,12 +1,12 @@
 import {
-  Directive,
   ContentChildren,
+  Directive,
   TemplateRef,
 } from '@angular/core';
 
 
 @Directive({
-  selector: '[fs-group-menu-item-template]'
+  selector: '[fs-group-menu-item-template]',
 })
 export class FsGroupMenuItemTemplateDirective {
 

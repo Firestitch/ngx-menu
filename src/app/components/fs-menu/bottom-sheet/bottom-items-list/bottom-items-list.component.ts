@@ -5,21 +5,22 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
+
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { FsMenuItemDirective } from '../../../../directives';
+import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-item.directive';
 import { createItemsObserver } from '../../../../helpers/create-items-observer';
 import { isFileItemDirective } from '../../../../helpers/is-file-item-directive';
 
 @Component({
   selector: 'fs-bottom-items-list',
   templateUrl: './bottom-items-list.component.html',
-  styleUrls: [ './bottom-items-list.component.scss' ],
+  styleUrls: ['./bottom-items-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BottomItemsListComponent implements OnInit, OnChanges {
@@ -33,7 +34,7 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
   private _destroy$ = new Subject();
 
   constructor(
-    private _bottomSheetRef: MatBottomSheetRef<any>,
+    private _bottomSheetRef: MatBottomSheetRef,
     private _cdRef: ChangeDetectorRef,
   ) {
     //this._cdRef.detach();
@@ -84,7 +85,7 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
       )
       .subscribe(() => {
         if (item?.click) {
-          item.click(event)
+          item.click(event);
         }
 
         subscription.unsubscribe();
@@ -103,7 +104,7 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
     if (this.items && this.items.length) {
       createItemsObserver(this.items)
         .pipe(
-          takeUntil(this._destroy$)
+          takeUntil(this._destroy$),
         )
         .subscribe(() => {
           this._cdRef.detectChanges();

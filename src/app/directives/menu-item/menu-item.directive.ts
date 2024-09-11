@@ -14,12 +14,12 @@ import {
   TemplateRef,
 } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
-import { FsGroupMenuItemTemplateDirective } from '../group-menu-item-template/fs-group-menu-item-template.directive';
-
+import { FsGroupMenuItemTemplateDirective } from '../group-menu-item-template';
 
 type stringFn = () => string;
+
 
 @Directive()
 export class MenuItemDirective implements OnChanges, OnDestroy {
@@ -50,12 +50,13 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
     this._isGroup = !!this.childrenItems;
     this.checkChildrenVisibility();
 
-    this.itemChange$.next();
+    this._itemChange$.next();
   }
 
   public childrenItems: MenuItemDirective[];
+  public isDivider = false;
 
-  public itemChange$ = new Subject();
+  private _itemChange$ = new Subject();
 
   @ContentChild(FsGroupMenuItemTemplateDirective, { read: TemplateRef })
   private _groupItemTemplateRef;
@@ -72,6 +73,10 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
 
   public get isGroup() {
     return this._isGroup;
+  }
+
+  public get itemChange$(): Observable<any> {
+    return this._itemChange$.asObservable();  
   }
 
   public get visible() {
@@ -99,7 +104,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
       this.parent.checkChildrenVisibility();
     }
 
-    this.itemChange$.next();
+    this._itemChange$.next();
   }
 
   public checkChildrenVisibility() {
@@ -110,7 +115,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.itemChange$.complete();
+    this._itemChange$.complete();
   }
 
   public click(event) {

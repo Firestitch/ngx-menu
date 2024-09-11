@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { MatDialog } from '@angular/material/dialog';
+
 import { FsFile } from '@firestitch/file';
+
 import { DialogComponent } from '../dialog';
 
 
 @Component({
   selector: 'simple',
-  templateUrl: 'simple-menu.component.html',
+  templateUrl: './simple-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SimpleMenuComponent {
 
@@ -15,7 +19,7 @@ export class SimpleMenuComponent {
   constructor(private _dialog: MatDialog) {}
 
   public clicked(item) {
-    console.log(item + ' has been clicked');
+    console.log(`${item  } has been clicked`);
   }
 
   public openDialog(e) {
@@ -24,7 +28,7 @@ export class SimpleMenuComponent {
   }
 
   public fileSelect(fsFiles: FsFile) {
-    debugger;
+    // console.log(fsFiles);
   }
 
   public toggleToggle() {
@@ -33,9 +37,9 @@ export class SimpleMenuComponent {
 
   public isShowToggle = () => {
     return this.toggle;
-  }
+  };
 
   public isHideToggle = () => {
     return !this.toggle;
-  }
+  };
 }

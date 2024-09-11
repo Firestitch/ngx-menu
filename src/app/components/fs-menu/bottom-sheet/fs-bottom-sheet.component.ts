@@ -5,6 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 
@@ -18,7 +19,7 @@ export class FsBottomSheetComponent implements OnInit {
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private _cd: ChangeDetectorRef
+    private _cd: ChangeDetectorRef,
   ) {}
 
   public ngOnInit(): void {

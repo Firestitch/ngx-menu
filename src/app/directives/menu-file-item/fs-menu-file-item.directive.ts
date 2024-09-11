@@ -12,9 +12,9 @@ import { MenuItemDirective } from '../menu-item/menu-item.directive';
   providers: [
     {
       provide: MenuItemDirective,
-      useExisting: forwardRef(() => FsMenuFileItemDirective)
+      useExisting: forwardRef(() => FsMenuFileItemDirective),
     },
-  ]
+  ],
 })
 export class FsMenuFileItemDirective extends MenuItemDirective {
 
