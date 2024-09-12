@@ -13,6 +13,9 @@
     }
         
     .mat-menu-item {
+      align-items: center;
+      display: flex;
+
       .file-label {
         width: 100%;
         margin: 0 -16px;
