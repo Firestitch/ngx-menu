@@ -50,7 +50,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
     this._isGroup = !!this.childrenItems;
     this.checkChildrenVisibility();
 
-    this._itemChange$.next();
+    this._itemChange$.next(null);
   }
 
   public childrenItems: MenuItemDirective[];
@@ -104,7 +104,7 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
       this.parent.checkChildrenVisibility();
     }
 
-    this._itemChange$.next();
+    this._itemChange$.next(null);
   }
 
   public checkChildrenVisibility() {

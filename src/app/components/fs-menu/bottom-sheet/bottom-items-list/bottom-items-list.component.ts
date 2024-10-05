@@ -49,7 +49,7 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
       this.items
         .forEach((item) => item.generateTooltip());
 
-      this._destroy$.next();
+      this._destroy$.next(null);
       this.subscribeToChanges();
     }
   }

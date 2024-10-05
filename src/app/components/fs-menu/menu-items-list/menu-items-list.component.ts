@@ -49,14 +49,14 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
         .forEach((item) => item.generateTooltip());
 
       this._cdRef.detectChanges();
-      this._destroy$.next();
+      this._destroy$.next(null);
 
       this._subscribeToChanges();
     }
   }
 
   public ngOnDestroy() {
-    this._destroy$.next();
+    this._destroy$.next(null);
     this._destroy$.complete();
   }
 
