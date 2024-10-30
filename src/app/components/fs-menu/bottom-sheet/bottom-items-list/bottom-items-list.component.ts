@@ -71,7 +71,7 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
    * @param item
    */
   public click(event: MouseEvent, item) {   
-    if (item.select) {
+    if (item.select || item.disabled) {
       event.stopPropagation();
 
       return;

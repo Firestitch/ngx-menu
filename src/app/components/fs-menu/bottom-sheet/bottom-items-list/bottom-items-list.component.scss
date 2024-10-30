@@ -1,5 +1,18 @@
+a.mat-menu-item {
+  margin: 0 -16px;
+  padding: 16px;
+  display: block;
+  color: inherit;
+
+  &[disabled] {
+    cursor: default;
+    opacity: .38;
+  }
+}
+
 fs-bottom-items-list a.mat-menu-item {
-  padding: 0 32px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .mat-menu-item {
@@ -18,5 +31,6 @@ fs-bottom-items-list a.mat-menu-item {
     font-size: 85%;
     height: 30px;
     line-height: 30px;
+    color: #777777;
   }
 }
