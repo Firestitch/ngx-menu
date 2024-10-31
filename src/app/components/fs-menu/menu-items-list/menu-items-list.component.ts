@@ -38,7 +38,9 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   private _destroy$ = new Subject();
 
-  constructor(private _cdRef: ChangeDetectorRef) {}
+  constructor(
+    private _cdRef: ChangeDetectorRef,
+  ) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
@@ -68,7 +70,6 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   public fileSelected(item, event): void {
     item.select.emit(event);
-
     this.clicked.emit();
   }
 

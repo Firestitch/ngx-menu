@@ -32,6 +32,8 @@ import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component
 })
 export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  public static MobileBreakpoint = '(max-width: 599px)';
+  
   @Input('class') public klass = null;
   @Input() public buttonClass = '';
   @Input() public buttonType: 'icon' | 'miniFab' = 'icon';
@@ -42,8 +44,6 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Output()
   public closed = new EventEmitter<void>();
-
-  public static MOBILE_BREAKPOINT = '(max-width: 599px)';
 
   // Items with TemplateRefs and DirectiveRef for passing to bottomSheet
   public items: MenuItemDirective[] = [];
@@ -136,7 +136,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public subscribeToResChanges() {
     const layoutChanges = this._breakpointObserver.observe([
-      FsMenuComponent.MOBILE_BREAKPOINT,
+      FsMenuComponent.MobileBreakpoint,
     ]);
 
     layoutChanges
@@ -146,7 +146,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       )
       .subscribe((result) => {
         // Set mobile/desktop flag
-        this.mobile = result.breakpoints[FsMenuComponent.MOBILE_BREAKPOINT];
+        this.mobile = result.breakpoints[FsMenuComponent.MobileBreakpoint];
 
         if (this.menuOpened) {
           // Flag that menus was closed not by user

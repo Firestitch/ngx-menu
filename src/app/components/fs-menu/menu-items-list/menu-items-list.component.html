@@ -69,6 +69,7 @@
   
             <ng-template #fileTmp let-item>
               <fs-file
+                (click)="$event.stopPropagation()"
                 (select)="fileSelected(item, $event)"
                 (cancel)="clicked.emit()"
                 [multiple]="item.multiple">
