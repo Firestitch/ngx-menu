@@ -69,10 +69,9 @@
   
             <ng-template #fileTmp let-item>
               <fs-file
-                (click)="$event.stopPropagation()"
                 (select)="fileSelected(item, $event)"
                 (cancel)="clicked.emit()"
-                [multiple]="item.multiple">                
+                [multiple]="item.multiple">
               </fs-file>
               <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
             </ng-template>

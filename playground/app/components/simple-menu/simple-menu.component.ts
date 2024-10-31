@@ -28,7 +28,7 @@ export class SimpleMenuComponent {
   }
 
   public fileSelect(fsFiles: FsFile) {
-    // console.log(fsFiles);
+    console.log(fsFiles);
   }
 
   public toggleToggle() {
