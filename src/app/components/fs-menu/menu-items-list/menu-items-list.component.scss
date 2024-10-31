@@ -14,16 +14,23 @@
       padding-left: var(--mat-menu-item-leading-spacing);
     }
         
-    .mat-menu-item {
+    .mat-mdc-menu-item-text {
       align-items: center;
       display: flex;
+    }    
+  }
+}
 
-      .file-label {
-        width: 100%;
-        margin: 0 -16px;
-        padding: 0 16px;    
-      }
+.fs-menu-file-item {
+  position: relative;
+
+  ::ng-deep {
+    .file-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
-    
   }
 }

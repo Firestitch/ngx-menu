@@ -28,5 +28,7 @@ export class FsMenuFileItemDirective extends MenuItemDirective {
   @Output() public select = new EventEmitter<FsFile>();
   @Output() public error = new EventEmitter<any>();
 
+  public isFile = true;
+  
 }
 

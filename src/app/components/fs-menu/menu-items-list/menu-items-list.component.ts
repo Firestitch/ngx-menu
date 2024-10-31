@@ -17,7 +17,6 @@ import {
   FsMenuDividerItemDirective, FsMenuFileItemDirective, FsMenuItemDirective,
 } from '../../../directives';
 import { createItemsObserver } from '../../../helpers/create-items-observer';
-import { isFileItemDirective } from '../../../helpers/is-file-item-directive';
 
 
 @Component({
@@ -36,8 +35,6 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
 
   @Output()
   public clicked = new EventEmitter<void>();
-
-  public isFileItemDirective = isFileItemDirective;
 
   private _destroy$ = new Subject();
 

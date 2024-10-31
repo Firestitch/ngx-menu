@@ -55,8 +55,9 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
 
   public childrenItems: MenuItemDirective[];
   public isDivider = false;
+  public isFile = false;
 
-  private _itemChange$ = new Subject();
+  private _itemChange$ = new Subject();  
 
   @ContentChild(FsGroupMenuItemTemplateDirective, { read: TemplateRef })
   private _groupItemTemplateRef;

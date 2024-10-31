@@ -15,7 +15,6 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-item.directive';
 import { createItemsObserver } from '../../../../helpers/create-items-observer';
-import { isFileItemDirective } from '../../../../helpers/is-file-item-directive';
 
 @Component({
   selector: 'fs-bottom-items-list',
@@ -61,9 +60,6 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
   public trackBy(index) {
     return index;
   }
-
-  public isFileItemDirective = isFileItemDirective;
-
 
   /**
    * Click on element
