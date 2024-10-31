@@ -16,7 +16,8 @@
         </div>
         <fs-menu-items-list
           [items]="item.childrenItems"
-          [parentVisible]="item.visible">
+          [parentVisible]="item.visible"
+          (clicked)="clicked.emit()">
         </fs-menu-items-list>
       </div>
     </ng-container>
