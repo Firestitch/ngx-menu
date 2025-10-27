@@ -17,13 +17,29 @@ import {
   FsMenuDividerItemDirective, FsMenuFileItemDirective, FsMenuItemDirective,
 } from '../../../directives';
 import { createItemsObserver } from '../../../helpers/create-items-observer';
+import { MatDivider } from '@angular/material/divider';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuItem } from '@angular/material/menu';
+import { RouterLink } from '@angular/router';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { FsFileModule } from '@firestitch/file';
 
 
 @Component({
-  selector: 'fs-menu-items-list',
-  templateUrl: './menu-items-list.component.html',
-  styleUrls: ['./menu-items-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fs-menu-items-list',
+    templateUrl: './menu-items-list.component.html',
+    styleUrls: ['./menu-items-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatDivider,
+        MatTooltip,
+        MatMenuItem,
+        RouterLink,
+        NgClass,
+        NgTemplateOutlet,
+        FsFileModule,
+    ],
 })
 export class MenuItemsListComponent implements OnChanges, OnDestroy {
 

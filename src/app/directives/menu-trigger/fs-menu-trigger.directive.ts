@@ -18,7 +18,8 @@ import { FsMenuComponent } from '../../components/fs-menu/fs-menu.component';
 
 
 @Directive({
-  selector: '[fsMenuTriggerFor]',
+    selector: '[fsMenuTriggerFor]',
+    standalone: true,
 })
 export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
 

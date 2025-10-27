@@ -23,39 +23,34 @@ import { FsMenuTriggerDirective } from './directives/menu-trigger/fs-menu-trigge
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatBottomSheetModule,
-    MatListModule,
-    MatTooltipModule,
-
-    FsFileModule,
-  ],
-  exports: [
-    FsMenuComponent,
-    FsMenuItemDirective,
-    FsMenuTriggerDirective,
-    FsMenuFileItemDirective,
-    FsGroupMenuItemTemplateDirective,
-    FsMenuDividerItemDirective,
-  ],
-  declarations: [
-    FsMenuComponent,
-    FsBottomSheetComponent,
-    MenuItemsListComponent,
-    BottomItemsListComponent,
-
-    FsMenuItemDirective,
-    FsMenuFileItemDirective,
-    FsMenuTriggerDirective,
-    FsGroupMenuItemTemplateDirective,
-    FsMenuDividerItemDirective,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatBottomSheetModule,
+        MatListModule,
+        MatTooltipModule,
+        FsFileModule,
+        FsMenuComponent,
+        FsBottomSheetComponent,
+        MenuItemsListComponent,
+        BottomItemsListComponent,
+        FsMenuItemDirective,
+        FsMenuFileItemDirective,
+        FsMenuTriggerDirective,
+        FsGroupMenuItemTemplateDirective,
+        FsMenuDividerItemDirective,
+    ],
+    exports: [
+        FsMenuComponent,
+        FsMenuItemDirective,
+        FsMenuTriggerDirective,
+        FsMenuFileItemDirective,
+        FsGroupMenuItemTemplateDirective,
+        FsMenuDividerItemDirective,
+    ],
 })
 export class FsMenuModule {
   public static forRoot(): ModuleWithProviders<FsMenuModule> {

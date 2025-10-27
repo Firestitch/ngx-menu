@@ -22,13 +22,27 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { MenuItemDirective } from '../../directives/menu-item/menu-item.directive';
 
 import { FsBottomSheetComponent } from './bottom-sheet/fs-bottom-sheet.component';
+import { MatIconButton, MatMiniFabButton } from '@angular/material/button';
+import { NgClass } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MenuItemsListComponent } from './menu-items-list/menu-items-list.component';
 
 
 @Component({
-  selector: 'fs-menu',
-  templateUrl: './fs-menu.component.html',
-  styleUrls: ['./fs-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fs-menu',
+    templateUrl: './fs-menu.component.html',
+    styleUrls: ['./fs-menu.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatIconButton,
+        NgClass,
+        MatMenuTrigger,
+        MatIcon,
+        MatMiniFabButton,
+        MatMenu,
+        MenuItemsListComponent,
+    ],
 })
 export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 

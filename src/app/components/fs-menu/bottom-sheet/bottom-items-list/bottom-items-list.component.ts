@@ -15,12 +15,22 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { FsMenuItemDirective } from '../../../../directives/menu-item/fs-menu-item.directive';
 import { createItemsObserver } from '../../../../helpers/create-items-observer';
+import { RouterLink } from '@angular/router';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { FsFileModule } from '@firestitch/file';
 
 @Component({
-  selector: 'fs-bottom-items-list',
-  templateUrl: './bottom-items-list.component.html',
-  styleUrls: ['./bottom-items-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fs-bottom-items-list',
+    templateUrl: './bottom-items-list.component.html',
+    styleUrls: ['./bottom-items-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        RouterLink,
+        NgClass,
+        NgTemplateOutlet,
+        FsFileModule,
+    ],
 })
 export class BottomItemsListComponent implements OnInit, OnChanges {
 

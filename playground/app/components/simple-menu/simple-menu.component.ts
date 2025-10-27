@@ -5,12 +5,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { FsFile } from '@firestitch/file';
 
 import { DialogComponent } from '../dialog';
+import { FsMenuComponent } from '../../../../src/app/components/fs-menu/fs-menu.component';
+import { FsMenuItemDirective } from '../../../../src/app/directives/menu-item/fs-menu-item.directive';
+import { MatIcon } from '@angular/material/icon';
+import { FsMenuDividerItemDirective } from '../../../../src/app/directives/menu-divider-item/fs-menu-divider-item.directive';
+import { FsMenuFileItemDirective } from '../../../../src/app/directives/menu-file-item/fs-menu-file-item.directive';
 
 
 @Component({
-  selector: 'simple',
-  templateUrl: './simple-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'simple',
+    templateUrl: './simple-menu.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        FsMenuComponent,
+        FsMenuItemDirective,
+        MatIcon,
+        FsMenuDividerItemDirective,
+        FsMenuFileItemDirective,
+    ],
 })
 export class SimpleMenuComponent {
 

@@ -8,13 +8,14 @@ import { MenuItemDirective } from '../menu-item/menu-item.directive';
 
 
 @Directive({
-  selector: '[fs-menu-divider-item]',
-  providers: [
-    {
-      provide: MenuItemDirective,
-      useExisting: forwardRef(() => FsMenuDividerItemDirective),
-    },
-  ],
+    selector: '[fs-menu-divider-item]',
+    providers: [
+        {
+            provide: MenuItemDirective,
+            useExisting: forwardRef(() => FsMenuDividerItemDirective),
+        },
+    ],
+    standalone: true,
 })
 export class FsMenuDividerItemDirective extends MenuItemDirective {
 

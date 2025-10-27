@@ -6,7 +6,8 @@ import {
 
 
 @Directive({
-  selector: '[fs-group-menu-item-template]',
+    selector: '[fs-group-menu-item-template]',
+    standalone: true,
 })
 export class FsGroupMenuItemTemplateDirective {
 
