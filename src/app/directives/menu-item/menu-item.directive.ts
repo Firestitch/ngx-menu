@@ -1,18 +1,4 @@
-import {
-  ChangeDetectorRef,
-  ContentChild,
-  ContentChildren,
-  Directive,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Optional,
-  Output,
-  SimpleChanges,
-  SkipSelf,
-  TemplateRef,
-} from '@angular/core';
+import { ChangeDetectorRef, ContentChild, ContentChildren, Directive, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 
@@ -23,6 +9,10 @@ type stringFn = () => string;
 
 @Directive()
 export class MenuItemDirective implements OnChanges, OnDestroy {
+  cd = inject(ChangeDetectorRef);
+  templateRef = inject<TemplateRef<any>>(TemplateRef, { optional: true });
+  parent = inject(MenuItemDirective, { skipSelf: true, optional: true });
+
 
   @Input('fsClass') public ngClass = [];
   @Input('class') public cssClass = '';
@@ -65,12 +55,6 @@ export class MenuItemDirective implements OnChanges, OnDestroy {
   private _isGroup = false;
   private _tooltip: stringFn | string;
   private _tooltipValue: string;
-
-  constructor(
-    public cd: ChangeDetectorRef,
-    @Optional() public templateRef: TemplateRef<any>,
-    @SkipSelf() @Optional() public parent: MenuItemDirective,
-  ) {}
 
   public get isGroup() {
     return this._isGroup;

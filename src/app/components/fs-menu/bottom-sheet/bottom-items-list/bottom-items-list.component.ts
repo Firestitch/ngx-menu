@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
@@ -33,6 +25,9 @@ import { FsFileModule } from '@firestitch/file';
     ],
 })
 export class BottomItemsListComponent implements OnInit, OnChanges {
+  private _bottomSheetRef = inject(MatBottomSheetRef);
+  private _cdRef = inject(ChangeDetectorRef);
+
 
   @Input()
   public items: FsMenuItemDirective[];
@@ -41,13 +36,6 @@ export class BottomItemsListComponent implements OnInit, OnChanges {
   public parentVisible: boolean;
 
   private _destroy$ = new Subject();
-
-  constructor(
-    private _bottomSheetRef: MatBottomSheetRef,
-    private _cdRef: ChangeDetectorRef,
-  ) {
-    //this._cdRef.detach();
-  }
 
   public ngOnInit() {
     this._cdRef.detectChanges();

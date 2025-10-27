@@ -1,13 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  Inject,
-  Input,
-  OnInit,
-  Optional,
-  Self,
-  ViewContainerRef,
-} from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, ViewContainerRef, inject } from '@angular/core';
 
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -25,16 +16,16 @@ export class FsMenuTriggerDirective extends MatMenuTrigger implements OnInit {
 
   @Input('fsMenuTriggerFor') public fsMenu: FsMenuComponent = null;
 
-  constructor(
-    _overlay: Overlay,
-    _element: ElementRef<HTMLElement>,
-    _viewContainerRef: ViewContainerRef,
-    @Inject(MAT_MENU_SCROLL_STRATEGY) scrollStrategy: any,
-    @Optional() _parentMenu: MatMenu,
-    @Optional() @Self() _menuItemInstance: MatMenuItem,
-    @Optional() _dir: Directionality,
-    _focusMonitor?: FocusMonitor,
-  ) {
+  constructor() {
+    const _overlay = inject(Overlay);
+    const _element = inject<ElementRef<HTMLElement>>(ElementRef);
+    const _viewContainerRef = inject(ViewContainerRef);
+    const scrollStrategy = inject(MAT_MENU_SCROLL_STRATEGY);
+    const _parentMenu = inject(MatMenu, { optional: true });
+    const _menuItemInstance = inject(MatMenuItem, { optional: true, self: true });
+    const _dir = inject(Directionality, { optional: true });
+    const _focusMonitor = inject(FocusMonitor);
+
     super(
       _overlay,
       _element,

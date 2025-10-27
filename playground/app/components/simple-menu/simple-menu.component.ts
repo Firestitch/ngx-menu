@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -26,10 +26,10 @@ import { FsMenuFileItemDirective } from '../../../../src/app/directives/menu-fil
     ],
 })
 export class SimpleMenuComponent {
+  private _dialog = inject(MatDialog);
+
 
   public toggle = false;
-
-  constructor(private _dialog: MatDialog) {}
 
   public clicked(item) {
     console.log(`${item  } has been clicked`);

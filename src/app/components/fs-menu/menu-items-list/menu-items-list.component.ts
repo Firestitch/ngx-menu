@@ -1,14 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, inject } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -42,6 +32,8 @@ import { FsFileModule } from '@firestitch/file';
     ],
 })
 export class MenuItemsListComponent implements OnChanges, OnDestroy {
+  private _cdRef = inject(ChangeDetectorRef);
+
 
   @Input()
   public items: (FsMenuItemDirective | FsMenuFileItemDirective | FsMenuDividerItemDirective)[];
@@ -53,10 +45,6 @@ export class MenuItemsListComponent implements OnChanges, OnDestroy {
   public clicked = new EventEmitter<void>();
 
   private _destroy$ = new Subject();
-
-  constructor(
-    private _cdRef: ChangeDetectorRef,
-  ) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {

@@ -1,16 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -45,6 +33,10 @@ import { MenuItemsListComponent } from './menu-items-list/menu-items-list.compon
     ],
 })
 export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
+  private _bottomSheet = inject(MatBottomSheet);
+  private _breakpointObserver = inject(BreakpointObserver);
+  private _cdRef = inject(ChangeDetectorRef);
+
 
   public static MobileBreakpoint = '(max-width: 599px)';
   
@@ -100,14 +92,6 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   private _activeSheetRef: MatBottomSheetRef = null;
 
   private _destroy$ = new Subject();
-
-  constructor(
-    private _bottomSheet: MatBottomSheet,
-    private _breakpointObserver: BreakpointObserver,
-    private _cdRef: ChangeDetectorRef,
-  ) {
-    //this._cdRef.detach();
-  }
 
   public set resolutionChanged(val) {
     this._resolutionChanged = val;
