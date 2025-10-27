@@ -1,18 +1,21 @@
-<ng-container *ngFor="let item of items; trackBy: trackBy">
-  <ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="item.isDivider">
-      <mat-divider *ngIf="item.visible"></mat-divider>
-    </ng-container>
-    <ng-container *ngSwitchCase="item.isGroup">
-      <div class="fs-menu-groupped-list" [hidden]="!item.visible">
-        <div class="mat-menu-item fs-menu-group-label" disabled>
-          <ng-container *ngIf="!!item.label; else tpl">
+@for (item of items; track trackBy($index)) {
+  @switch (true) {
+    @case (item.isDivider) {
+      @if (item.visible) {
+        <mat-divider></mat-divider>
+      }
+    }
+    @case (item.isGroup) {
+      <div
+          class="fs-menu-groupped-list"
+          [hidden]="!item.visible">
+        <div
+            class="mat-menu-item fs-menu-group-label"
+            disabled>
+          @if (!!item.label) {
             {{ item.label }}
-          </ng-container>
-          <ng-template
-            #tpl
-            [ngTemplateOutlet]="item.groupItemTemplateRef">
-          </ng-template>
+          } @else {
+          }
         </div>
         <fs-menu-items-list
           [items]="item.childrenItems"
@@ -20,66 +23,65 @@
           (clicked)="clicked.emit()">
         </fs-menu-items-list>
       </div>
-    </ng-container>
-    <ng-container *ngSwitchDefault>
-      <ng-container *ngIf="item.link; else btn">
+    }
+    @default {
+      @if (item.link) {
         <div
             [matTooltip]="item.tooltip"
             [matTooltipDisabled]="!item.tooltip">
-          <a
-            mat-menu-item
-            *ngIf="item.visible"
-            [routerLink]="item.link"
-            [queryParams]="item.queryParams"
-            [target]="item.target"
-            (click)="item.click($event)"
-            [class]="item.cssClass"
-            [disabled]="item.disabled"
-            [ngClass]="item.ngClass"
-            [id]="item.cssId">
-            <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-          </a>
+          @if (item.visible) {
+            <a
+                mat-menu-item
+                [routerLink]="item.link"
+                [queryParams]="item.queryParams"
+                [target]="item.target"
+                (click)="item.click($event)"
+                [class]="item.cssClass"
+                [disabled]="item.disabled"
+                [ngClass]="item.ngClass"
+                [id]="item.cssId">
+              <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+            </a>
+          }
         </div>
-      </ng-container>
-      <ng-template #btn>
+      } @else {
         <div
             [matTooltip]="item.tooltip"
             [matTooltipDisabled]="!item.tooltip"
             [ngClass]="{
               'fs-menu-file-item': item.isFile
             }">
-          <button
-              type="button"
-              mat-menu-item
-              *ngIf="item.visible"
-              (click)="item.click($event)"
-              [class]="item.cssClass"
-              [ngClass]="item.ngClass"
-              [disabled]="item.disabled"
-              [id]="item.cssId">
-            <ng-container *ngIf="!item.isFile; else file">
-              <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-            </ng-container>
-  
-            <ng-template #file>
-              <ng-container *ngTemplateOutlet="
+          @if (item.visible) {
+            <button
+                type="button"
+                mat-menu-item
+                (click)="item.click($event)"
+                [class]="item.cssClass"
+                [ngClass]="item.ngClass"
+                [disabled]="item.disabled"
+                [id]="item.cssId">
+              @if (!item.isFile) {
+                <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+              } @else {
+                <ng-container *ngTemplateOutlet="
                 fileTmp;
-                context: { $implicit: item }">
-              </ng-container>
-            </ng-template>
-  
-            <ng-template #fileTmp let-item>
-              <fs-file
-                (click)="$event.stopPropagation()"
-                (select)="fileSelected(item, $event)"
-                (cancel)="clicked.emit()"
-                [multiple]="item.multiple">
-              </fs-file>
-              <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-            </ng-template>
-          </button>
+                context: { $implicit: item }"></ng-container>
+              }
+              <ng-template
+                  #fileTmp
+                  let-item>
+                <fs-file
+                  (click)="$event.stopPropagation()"
+                  (select)="fileSelected(item, $event)"
+                  (cancel)="clicked.emit()"
+                  [multiple]="item.multiple">
+                </fs-file>
+                <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+              </ng-template>
+            </button>
+          }
         </div>
-      </ng-template>
-    </ng-container>
-  </ng-container>
-</ng-container>
+      }
+    }
+  }
+}

@@ -1,65 +1,68 @@
-<ng-template [ngIf]="!mobile" [ngIfElse]="sheetMenu">
-  <ng-container *ngIf="buttonType === 'icon'">
-    <button
+@if (!mobile) {
+  @if (buttonType === 'icon') {
+    @if (useInternalTrigger) {
+      <button
         type="button"
         [ngClass]="buttonClass"
         mat-icon-button
-        *ngIf="useInternalTrigger"
         [matMenuTriggerFor]="fsMenu"
         #menuTrigger="matMenuTrigger"
         (click)="openMenu($event)">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-  </ng-container>
-  <ng-container *ngIf="buttonType === 'miniFab'">
-    <button
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    }
+  }
+  @if (buttonType === 'miniFab') {
+    @if (useInternalTrigger) {
+      <button
         type="button"
         [ngClass]="buttonClass"
         mat-mini-fab
         [color]="buttonColor"
-        *ngIf="useInternalTrigger"
         [matMenuTriggerFor]="fsMenu"
         #menuTrigger="matMenuTrigger"
         (click)="openMenu($event)">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-  </ng-container>
-</ng-template>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    }
+  }
+} @else {
+  @if (buttonType === 'icon') {
+    @if (useInternalTrigger) {
+      <button
+        type="button"
+        mat-icon-button
+        [ngClass]="buttonClass"
+        (click)="openMenu($event)">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    }
+  }
+  @if (buttonType === 'miniFab') {
+    @if (useInternalTrigger) {
+      <button
+        type="button"
+        mat-mini-fab
+        [color]="buttonColor"
+        [ngClass]="buttonClass"
+        (click)="openMenu($event)">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    }
+  }
+}
 
-<ng-template #sheetMenu>
-  <ng-container *ngIf="buttonType === 'icon'">
-    <button
-        type="button"
-        mat-icon-button
-        [ngClass]="buttonClass"
-        *ngIf="useInternalTrigger"
-        (click)="openMenu($event)">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-  </ng-container>
-  <ng-container *ngIf="buttonType === 'miniFab'">
-    <button
-        type="button"
-        mat-mini-fab
-        [color]="buttonColor"
-        [ngClass]="buttonClass"
-        *ngIf="useInternalTrigger"
-        (click)="openMenu($event)">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-  </ng-container>
-</ng-template>
 
 <mat-menu
-    #fsMenu="matMenu"
-    [class]="klass"
-    (close)="closedMatMenu()">
+  #fsMenu="matMenu"
+  [class]="klass"
+  (close)="closedMatMenu()">
   <div class="fs-menu-container">
-    <ng-container *ngIf="menuOpened">
-      <fs-menu-items-list      
+    @if (menuOpened) {
+      <fs-menu-items-list
         [items]="items"
         (clicked)="closeMenu()">
       </fs-menu-items-list>
-    </ng-container>
+    }
   </div>
 </mat-menu>

@@ -1,25 +1,24 @@
-<ng-container *ngFor="let item of items; trackBy: trackBy">
-  <ng-container *ngIf="item.isGroup else menuItem">
-    <div class="mat-menu-item fs-menu-group-label" [hidden]="!item.visible" disabled>
-      <ng-container *ngIf="!!item.label; else tpl">
+@for (item of items; track trackBy($index)) {
+  @if (item.isGroup) {
+    <div
+        class="mat-menu-item fs-menu-group-label"
+        [hidden]="!item.visible"
+        disabled>
+      @if (!!item.label) {
         {{ item.label }}
-      </ng-container>
-      <ng-template 
-        #tpl
-        [ngTemplateOutlet]="item.groupItemTemplateRef">
-      </ng-template>
+      } @else {
+      }
     </div>
-    <fs-bottom-items-list 
+    <fs-bottom-items-list
       [items]="item.childrenItems"
       [hidden]="!item.visible"
       [parentVisible]="item.visible"
       class="group">
     </fs-bottom-items-list>
-  </ng-container>
-  <ng-template #menuItem>
-    <ng-container *ngIf="item.visible">
-      <ng-container *ngIf="item.link; else btnLikeAction">
-        <a 
+  } @else {
+    @if (item.visible) {
+      @if (item.link) {
+        <a
             (click)="click($event, item)"
             [routerLink]="item.link"
             [queryParams]="item.queryParams"
@@ -30,27 +29,26 @@
             [id]="item.cssId">
           <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
         </a>
-      </ng-container>
-      <ng-template #btnLikeAction>
-         <a 
+      } @else {
+        <a
             (click)="click($event, item)"
             [class]="'mat-menu-item ' + item.cssClass"
             [ngClass]="item.ngClass"
             [attr.disabled]="item.disabled ? 'disabled' : null"
             [id]="item.cssId">
-          <ng-container *ngIf="!item.isFile; else file">
+          @if (!item.isFile) {
             <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-          </ng-container>
-
-          <ng-template #file>
+          } @else {
             <ng-container *ngTemplateOutlet="
               fileTmp;
               context: { $implicit: item }
             "></ng-container>
-          </ng-template>
-
-          <ng-template #fileTmp let-item>---
-            <fs-file 
+          }
+          <ng-template
+              #fileTmp
+              let-item>
+            ---
+            <fs-file
                 (select)="item.select.emit($event)"
                 [multiple]="item.multiple"
                 [accept]="item.accept || ''"
@@ -63,7 +61,7 @@
             </fs-file>
           </ng-template>
         </a>
-      </ng-template>
-    </ng-container>
-  </ng-template>
-</ng-container>
+      }
+    }
+  }
+}
