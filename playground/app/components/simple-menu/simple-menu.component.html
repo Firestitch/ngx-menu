@@ -1,7 +1,7 @@
-<fs-menu 
-    class="simple-menu" 
+<fs-menu
+    class="simple-menu"
     buttonClass="button-class">
-  <ng-template 
+  <ng-template
       fs-menu-item
       (click)="clicked('Item 1')"
       class="test-123"
@@ -10,40 +10,40 @@
       target="_blank"
       [tooltip]="'Tooltip'"
       [fsClass]="['test-555']">
-    Item
+    Link Item
   </ng-template>
-  <ng-template 
-      fs-menu-item 
+  <ng-template
+      fs-menu-item
       (click)="openDialog('Item 2')">
-    <mat-icon>settings</mat-icon> Open Dialog
+    <mat-icon>
+      settings
+    </mat-icon>
+    Open Dialog
   </ng-template>
-  <ng-template 
-      fs-menu-item 
+  <ng-template
+      fs-menu-item
       [show]="isShowToggle"
       (click)="toggleToggle()">
     Turn on
   </ng-template>
-  <ng-template 
-      fs-menu-item 
+  <ng-template
+      fs-menu-item
       [show]="isHideToggle"
       (click)="toggleToggle()">
     Turn off
   </ng-template>
-  <ng-template 
-      fs-menu-divider-item>
-  </ng-template>
-  <ng-template 
+  <ng-template fs-menu-divider-item></ng-template>
+  <ng-template
       fs-menu-file-item
       [multiple]="true"
       (select)="fileSelect($event)">
     Upload
   </ng-template>
 </fs-menu>
-
-<fs-menu 
+<fs-menu
     [buttonType]="'miniFab'"
     [buttonColor]="'primary'">
-  <ng-template 
+  <ng-template
       fs-menu-item
       (click)="clicked('Item 1')"
       class="test-123"

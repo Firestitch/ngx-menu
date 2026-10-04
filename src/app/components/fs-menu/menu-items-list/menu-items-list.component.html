@@ -6,23 +6,24 @@
       }
     }
     @case (item.isGroup) {
-      <div
-          class="fs-menu-groupped-list"
-          [hidden]="!item.visible">
-        <div
-            class="mat-menu-item fs-menu-group-label"
-            disabled>
-          @if (!!item.label) {
-            {{ item.label }}
-          } @else {
-          }
+      <!-- A hidden group draws nothing, so the keyboard cannot reach its entries -->
+      @if (item.visible) {
+        <div class="fs-menu-groupped-list">
+          <div
+              class="mat-menu-item fs-menu-group-label"
+              disabled>
+            @if (!!item.label) {
+              {{ item.label }}
+            } @else {
+            }
+          </div>
+          <fs-menu-items-list
+            [items]="item.childrenItems"
+            [parentVisible]="item.visible"
+            (clicked)="clicked.emit()">
+          </fs-menu-items-list>
         </div>
-        <fs-menu-items-list
-          [items]="item.childrenItems"
-          [parentVisible]="item.visible"
-          (clicked)="clicked.emit()">
-        </fs-menu-items-list>
-      </div>
+      }
     }
     @default {
       @if (item.link) {
@@ -44,13 +45,35 @@
             </a>
           }
         </div>
+      } @else if (item.isFile) {
+        <div
+            class="fs-menu-file-item"
+            [matTooltip]="item.tooltip"
+            [matTooltipDisabled]="!item.tooltip">
+          @if (item.visible) {
+            <button
+                type="button"
+                mat-menu-item
+                (click)="openFilePicker(file, $event)"
+                [class]="item.cssClass"
+                [ngClass]="item.ngClass"
+                [disabled]="item.disabled"
+                [id]="item.cssId">
+              <fs-file
+                #file
+                (click)="$event.stopPropagation()"
+                (select)="fileSelected(item, $event)"
+                (cancel)="clicked.emit()"
+                [multiple]="$any(item).multiple">
+              </fs-file>
+              <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
+            </button>
+          }
+        </div>
       } @else {
         <div
             [matTooltip]="item.tooltip"
-            [matTooltipDisabled]="!item.tooltip"
-            [ngClass]="{
-              'fs-menu-file-item': item.isFile
-            }">
+            [matTooltipDisabled]="!item.tooltip">
           @if (item.visible) {
             <button
                 type="button"
@@ -60,24 +83,7 @@
                 [ngClass]="item.ngClass"
                 [disabled]="item.disabled"
                 [id]="item.cssId">
-              @if (!item.isFile) {
-                <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-              } @else {
-                <ng-container *ngTemplateOutlet="
-                fileTmp;
-                context: { $implicit: item }"></ng-container>
-              }
-              <ng-template
-                  #fileTmp
-                  let-item>
-                <fs-file
-                  (click)="$event.stopPropagation()"
-                  (select)="fileSelected(item, $event)"
-                  (cancel)="clicked.emit()"
-                  [multiple]="item.multiple">
-                </fs-file>
-                <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
-              </ng-template>
+              <ng-template [ngTemplateOutlet]="item.templateRef"></ng-template>
             </button>
           }
         </div>

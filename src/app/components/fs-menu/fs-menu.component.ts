@@ -1,8 +1,9 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
 
+import { InteractivityChecker } from '@angular/cdk/a11y';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -85,6 +86,7 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _internalMatMenuTrigger;
   private _externalMatMenuTrigger;
+  private _interactivityChecker = inject(InteractivityChecker);
 
   private _resolutionChanged = false;
 
@@ -117,6 +119,8 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
+    this._skipUnseenEntries();
+
     if (!this._externalMatMenuTrigger) {
       this.useInternalTrigger = true;
       this._cdRef.detectChanges();
@@ -256,8 +260,10 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
+        // A sheet dismissed for a switch to the desktop menu is not a close: the menu stays open
         if (!this.resolutionChanged) {
           this.menuOpened = false;
+          this.closed.emit();
         }
 
         this.resolutionChanged = false;
@@ -273,6 +279,16 @@ export class FsMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   
+  // The keys pass over entries that are drawn but not seen, as they do over disabled ones. A page's
+  // CSS can hide an entry (a class bound through [fsClass] or [class] that applies only at some
+  // screen widths), and focusing a hidden entry does nothing, which would leave the focus outside
+  // the open menu. Checked on each key press, so an entry follows the page's breakpoints.
+  private _skipUnseenEntries(): void {
+    this.fsMenuRef['_keyManager']
+      .skipPredicate((menuItem: MatMenuItem) => menuItem.disabled
+        || !this._interactivityChecker.isVisible(menuItem._getHostElement()));
+  }
+
   private _updateHidden(items: MenuItemDirective[]) {
     items.forEach((item) => {
       this._updateHidden(item.childrenItems || []);
